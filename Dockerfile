@@ -6,8 +6,9 @@ COPY pyproject.toml .
 
 RUN touch README.md
 
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir .
+RUN pip install --no-cache-dir --upgrade pip
+RUN pip install --no-cache-dir build 
+RUN pip install --no-cache-dir .
 
 COPY . .
 
