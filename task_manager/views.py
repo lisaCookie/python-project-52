@@ -9,3 +9,5 @@ class IndexView(TemplateView):
         context = super().index(**kwargs)
         context["who"] = "World"
         return context
+
+
