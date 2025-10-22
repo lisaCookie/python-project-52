@@ -14,4 +14,4 @@ COPY . .
 
 RUN python manage.py migrate 
 
-CMD ["gunicorn", "task_manager.wsgi:application", "--bind", "0.0.0.0:$PORT"]
+CMD ["gunicorn", "task_manager.wsgi:application", "--bind", "0.0.0.0:8000"]
