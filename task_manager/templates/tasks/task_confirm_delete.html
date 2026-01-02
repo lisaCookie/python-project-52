@@ -1,0 +1,15 @@
+<!-- templates/tasks/task_confirm_delete.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удалить задачу: {{ task.name }}</title>
+</head>
+<body>
+    <h1>Удалить задачу: {{ task.name }}?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Да, удалить</button>
+    </form>
+    <a href="{% url 'task-detail' task.pk %}">Отмена</a>
+</body>
+</html>
