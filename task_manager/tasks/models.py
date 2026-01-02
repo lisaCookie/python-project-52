@@ -11,6 +11,8 @@ class Task(models.Model):
     status = models.ForeignKey('users.Status', on_delete=models.PROTECT, related_name='tasks')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_tasks')
     created_at = models.DateTimeField(auto_now_add=True)
+    labels = models.ManyToManyField('labels.Label', blank=True, related_name='tasks') 
 
     def __str__(self):
         return self.name
+    

@@ -1,0 +1,15 @@
+<!-- templates/labels/label_confirm_delete.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удалить метку: {{ object.name }}</title>
+</head>
+<body>
+    <h1>Удалить метку: {{ object.name }}?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Да, удалить</button>
+    </form>
+    <a href="{% url 'label-list' %}">Отмена</a>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!-- templates/labels/label_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if object %}Редактировать{% else %}Создать{% endif %} метку</title>
+</head>
+<body>
+    <h1>{% if object %}Редактировать{% else %}Создать{% endif %} метку</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">{% if object %}Обновить{% else %}Создать{% endif %}</button>
+    </form>
+    <a href="{% url 'label-list' %}">К списку меток</a>
+</body>
+</html>

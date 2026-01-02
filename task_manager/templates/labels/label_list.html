@@ -1,0 +1,23 @@
+<!-- templates/labels/label_list.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Метки</title>
+</head>
+<body>
+    <h1>Список меток</h1>
+    <a href="{% url 'label-create' %}">Создать новую метку</a>
+    <ul>
+        {% for label in labels %}
+            <li>
+                {{ label.name }}
+                <a href="{% url 'label-update' label.pk %}">Редактировать</a>
+                <a href="{% url 'label-delete' label.pk %}">Удалить</a>
+            </li>
+        {% empty %}
+            <li>Нет меток.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'task-list' %}">К списку задач</a>
+</body>
+</html>
