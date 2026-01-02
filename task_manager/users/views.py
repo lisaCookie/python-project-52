@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.shortcuts import redirect
 from .models import Status
-from task_manager.models import Task 
+from task_manager.tasks.models import Task
 
 # Список пользователей - публичный
 class UserListView(ListView):
