@@ -8,7 +8,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from .models import Task
 from django.contrib import messages
-from .forms import TaskForm 
+from .forms import TaskForm
+from .filters import TaskFilter 
+from django_filters.views import FilterView
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
@@ -63,3 +65,15 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, 'Задача успешно удалена.')
         return super().delete(request, *args, **kwargs)
+    
+class TaskFilterView(LoginRequiredMixin, FilterView):
+    model = Task
+    filterset_class = TaskFilter
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'tasks'
+    paginate_by = 10
+
+    def get_queryset(self):
+        # Можно оставить, чтобы фильтр работал с текущим пользователем
+        queryset = super().get_queryset()
+        return queryset.filter(author=self.request.user)

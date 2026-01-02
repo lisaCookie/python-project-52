@@ -6,6 +6,7 @@ Requires-Python: >=3.13
 Description-Content-Type: text/markdown
 Requires-Dist: django>=5.2.7
 Requires-Dist: django-bootstrap5
+Requires-Dist: django-filter>=25.2
 Requires-Dist: gunicorn
 
 ### Hexlet tests and linter status:

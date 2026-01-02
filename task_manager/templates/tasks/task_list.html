@@ -1,4 +1,5 @@
 <!-- templates/tasks/task_list.html -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,6 +7,14 @@
 </head>
 <body>
     <h1>Все задачи</h1>
+
+    <!-- Форма фильтрации -->
+    <form method="get" style="margin-bottom: 20px;">
+        {{ filter.form.as_p }}
+        <button type="submit">Фильтровать</button>
+        <a href="{% url 'task-list' %}">Сбросить фильтры</a>
+    </form>
+
     <a href="{% url 'task-create' %}">Создать новую задачу</a>
     <ul>
         {% for task in tasks %}
