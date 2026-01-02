@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Статусы задач</h1>
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Действия</th>
+  </tr>
+  {% for status in statuses %}
+  <tr>
+    <td>{{ status.name }}</td>
+    <td>
+      <a href="{% url 'status-update' status.pk %}">Редактировать</a>
+      <a href="{% url 'status-delete' status.pk %}">Удалить</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'status-create' %}">Добавить статус</a>
+{% endblock %}

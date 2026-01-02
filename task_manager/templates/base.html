@@ -17,6 +17,11 @@ body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relati
           <li class="nav-item">
             <a class="nav-link" href="/users/">Пользователи</a>
           </li>
+
+          <!-- добавляем ссылку на статусы -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'status_list' %}">Статусы</a>
+          </li>
           
         </ul>
         <ul class="navbar-nav">
