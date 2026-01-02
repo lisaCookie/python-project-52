@@ -1,0 +1,17 @@
+<h1>Пользователи</h1>
+<table>
+  <tr>
+    <th>Имя пользователя</th>
+    <th>Действия</th>
+  </tr>
+  {% for user in users %}
+  <tr>
+    <td>{{ user.username }}</td>
+    <td>
+      <a href="{% url 'user-update' user.pk %}">Редактировать</a>
+      <a href="{% url 'user-delete' user.pk %}">Удалить</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<a href="{% url 'user-create' %}">Зарегистрировать нового</a>

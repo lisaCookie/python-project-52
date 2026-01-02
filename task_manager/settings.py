@@ -1,3 +1,5 @@
+# task_manager/settings.py
+
 """
 Django settings for task_manager project.
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'task_manager',
+    'task_manager.users',
     'django_bootstrap5',
 ]
 
