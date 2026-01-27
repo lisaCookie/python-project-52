@@ -11,6 +11,7 @@ from django.contrib import messages
 from .forms import TaskForm
 from .filters import TaskFilter 
 from django_filters.views import FilterView
+from task_manager.users.models import Status
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
@@ -77,3 +78,10 @@ class TaskFilterView(LoginRequiredMixin, FilterView):
         # Можно оставить, чтобы фильтр работал с текущим пользователем
         queryset = super().get_queryset()
         return queryset.filter(author=self.request.user)
+    
+class StatusListView(LoginRequiredMixin, ListView):
+    model = Status
+    template_name = 'statuses/status_list.html'  # создайте этот шаблон
+    context_object_name = 'statuses'
+
+    

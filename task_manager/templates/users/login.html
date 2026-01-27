@@ -1,7 +1,23 @@
-<h1>Вход в систему</h1>
+{% extends 'base.html' %}
+
+{% block title %}Вход - Менеджер задач Hexlet{% endblock %}
+
+{% block content %}
+<h1 class="my-4">Вход</h1>
+
 <form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Войти</button>
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+            <div class="alert alert-danger">{{ field.errors }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    <button type="submit" class="btn btn-primary">Войти</button>
 </form>
-<a href="{% url 'user-create' %}">Зарегистрироваться</a>
+{% endblock %}

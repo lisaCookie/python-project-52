@@ -1,23 +1,43 @@
 <!-- templates/labels/label_list.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Метки</title>
-</head>
-<body>
-    <h1>Список меток</h1>
-    <a href="{% url 'label-create' %}">Создать новую метку</a>
-    <ul>
-        {% for label in labels %}
-            <li>
-                {{ label.name }}
-                <a href="{% url 'label-update' label.pk %}">Редактировать</a>
-                <a href="{% url 'label-delete' label.pk %}">Удалить</a>
-            </li>
-        {% empty %}
-            <li>Нет меток.</li>
-        {% endfor %}
-    </ul>
-    <a href="{% url 'task-list' %}">К списку задач</a>
-</body>
-</html>
+
+{% extends 'base.html' %}
+
+{% block title %}Список меток - Менеджер задач Hexlet{% endblock %}
+
+{% block content %}
+<h1 class="my-4">Список меток</h1>
+
+<a href="{% url 'label-create' %}" class="btn btn-primary mb-3">Создать новую метку</a>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Дата создания</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for label in labels %}
+            <tr>
+                <td>{{ label.id }}</td>
+                <td>{{ label.name }}</td>
+                <td>{{ label.created_at|date:"d.m.Y H:i" }}</td>
+                <td>
+                    <a href="{% url 'label-update' label.pk %}" class="btn btn-primary btn-sm">Редактировать</a>
+                    <a href="{% url 'label-delete' label.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center">Нет меток.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<a href="{% url 'task-list' %}" class="btn btn-secondary">К списку задач</a>
+{% endblock %}

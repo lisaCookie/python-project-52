@@ -1,16 +1,32 @@
 <!-- templates/labels/label_form.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{% if object %}Редактировать{% else %}Создать{% endif %} метку</title>
-</head>
-<body>
-    <h1>{% if object %}Редактировать{% else %}Создать{% endif %} метку</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">{% if object %}Обновить{% else %}Создать{% endif %}</button>
-    </form>
-    <a href="{% url 'label-list' %}">К списку меток</a>
-</body>
-</html>
+
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if object %}Редактирование метки{% else %}Создание метки{% endif %} - Менеджер задач Hexlet
+{% endblock %}
+
+{% block content %}
+<h1 class="my-4">
+    {% if object %}Редактирование метки{% else %}Создание метки{% endif %}
+</h1>
+
+<form method="post">
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <div class="mb-3">
+        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}
+            <div class="alert alert-danger">{{ field.errors }}</div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    
+    <button type="submit" class="btn btn-primary">
+        {% if object %}Обновить{% else %}Создать{% endif %}
+    </button>
+    <a href="{% url 'label-list' %}" class="btn btn-secondary">К списку меток</a>
+</form>
+{% endblock %}

@@ -1,11 +1,13 @@
 # users/tests.py
 
+
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
+from task_manager.users.models import Status
+from task_manager.tasks.models import Task
 
 class UserCRUDTests(TestCase):
-
     def setUp(self):
         self.client = Client()
 
@@ -14,25 +16,18 @@ class UserCRUDTests(TestCase):
             'username': 'testuser',
             'password1': 'Password123!',
             'password2': 'Password123!',
-            # если есть дополнительные поля, добавьте их сюда
         })
-        # Проверяем, что после успешной регистрации происходит редирект (обычно на страницу логина)
         self.assertEqual(response.status_code, 302)
-        # Проверяем, что пользователь создан в базе
         self.assertTrue(User.objects.filter(username='testuser').exists())
 
     def test_login_logout(self):
-        # Создаем пользователя для теста входа
         User.objects.create_user(username='testuser', password='Password123!')
-        # Входим в систему
         login_successful = self.client.login(username='testuser', password='Password123!')
         self.assertTrue(login_successful)
-        # Выполняем logout
         response = self.client.post(reverse('logout'))
         self.assertEqual(response.status_code, 302)
-        # После выхода пользователь должен быть разлогинен
+        # После выхода пользователь разлогинен
         response = self.client.get(reverse('user-list'))
-        # Можно проверить, что пользователь не авторизован
         self.assertFalse('_auth_user_id' in self.client.session)
 
     def test_edit_profile(self):
@@ -56,5 +51,40 @@ class UserCRUDTests(TestCase):
         self.client.login(username='testuser', password='Password123!')
         response = self.client.post(reverse('user-delete', kwargs={'pk': user.pk}))
         self.assertEqual(response.status_code, 302)
-        # Проверяем, что пользователь удален
         self.assertFalse(User.objects.filter(username='testuser').exists())
+
+class StatusCRUDTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.admin_user = User.objects.create_superuser(username='admin', password='adminpass')
+        self.client.login(username='admin', password='adminpass')
+        self.status = Status.objects.create(name='Initial Status')
+
+    def test_list_statuses(self):
+        response = self.client.get(reverse('status-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Initial Status')
+
+    def test_create_status(self):
+        response = self.client.post(reverse('status-create'), {'name': 'New Status'})
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(Status.objects.filter(name='New Status').exists())
+
+    def test_update_status(self):
+        response = self.client.post(reverse('status-update', kwargs={'pk': self.status.pk}), {'name': 'Updated Status'})
+        self.assertEqual(response.status_code, 302)
+        self.status.refresh_from_db()
+        self.assertEqual(self.status.name, 'Updated Status')
+
+    def test_delete_status_without_tasks(self):
+        response = self.client.post(reverse('status-delete', kwargs={'pk': self.status.pk}))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Status.objects.filter(pk=self.status.pk).exists())
+
+    def test_delete_status_with_tasks(self):
+        response = self.client.post(reverse('status-delete', kwargs={'pk': self.status.pk}))
+    # Проверить, что статус не удалился
+        self.assertTrue(Status.objects.filter(pk=self.status.pk).exists())
+    # Проверить, что сообщение об ошибке есть (опционально)
+        messages_list = list(response.wsgi_request._messages)
+        self.assertTrue(any("Нельзя удалить статус, связанный с задачами." in str(m) for m in messages_list))
