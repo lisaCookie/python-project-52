@@ -8,6 +8,7 @@ hexlet_code.egg-info/top_level.txt
 task_manager/__init__.py
 task_manager/asgi.py
 task_manager/main.py
+task_manager/manage.py
 task_manager/settings.py
 task_manager/urls.py
 task_manager/views.py
@@ -19,8 +20,17 @@ task_manager/labels/models.py
 task_manager/labels/tests.py
 task_manager/labels/urls.py
 task_manager/labels/views.py
-task_manager/labels/migrations/0001_initial.py
 task_manager/labels/migrations/__init__.py
+task_manager/statuses/__init__.py
+task_manager/statuses/apps.py
+task_manager/statuses/asgi.py
+task_manager/statuses/models.py
+task_manager/statuses/settings.py
+task_manager/statuses/tests.py
+task_manager/statuses/urls.py
+task_manager/statuses/views.py
+task_manager/statuses/wsgi.py
+task_manager/statuses/migrations/__init__.py
 task_manager/tasks/__init__.py
 task_manager/tasks/admin.py
 task_manager/tasks/apps.py
@@ -30,8 +40,6 @@ task_manager/tasks/models.py
 task_manager/tasks/tests.py
 task_manager/tasks/urls.py
 task_manager/tasks/views.py
-task_manager/tasks/migrations/0001_initial.py
-task_manager/tasks/migrations/0002_task_labels.py
 task_manager/tasks/migrations/__init__.py
 task_manager/users/__init__.py
 task_manager/users/admin.py
@@ -41,6 +49,4 @@ task_manager/users/models.py
 task_manager/users/tests.py
 task_manager/users/urls.py
 task_manager/users/views.py
-task_manager/users/migrations/0001_initial.py
-task_manager/users/migrations/0002_status.py
 task_manager/users/migrations/__init__.py

@@ -11,7 +11,7 @@ from django.contrib import messages
 from .forms import TaskForm
 from .filters import TaskFilter 
 from django_filters.views import FilterView
-from task_manager.users.models import Status
+from task_manager.statuses.models import Status
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task

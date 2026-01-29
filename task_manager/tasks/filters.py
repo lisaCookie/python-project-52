@@ -2,7 +2,7 @@
 
 import django_filters
 from .models import Task
-from task_manager.users.models import Status
+from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 from django.contrib.auth.models import User
 
