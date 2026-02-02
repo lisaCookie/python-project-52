@@ -8,6 +8,9 @@ from django.contrib import messages
 from .models import Task
 from .forms import TaskForm
 from django.shortcuts import redirect
+from task_manager.statuses.models import Status
+from task_manager.users.models import User  
+from task_manager.labels.models import Label
 
 class TaskListView(LoginRequiredMixin, ListView):
     model = Task
@@ -87,3 +90,4 @@ class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixi
     def handle_no_permission(self):
         messages.error(self.request, 'Вы можете удалять только свои задачи')
         return redirect('task-list')
+
