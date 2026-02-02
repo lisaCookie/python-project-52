@@ -1,6 +1,5 @@
 # task_manager/views.py
 
-from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
