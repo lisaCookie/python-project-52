@@ -5,10 +5,17 @@
 {% block content %}
 <h1 class="my-4">Удаление статуса</h1>
 
+{% if has_related_tasks %}
+<div class="alert alert-danger">
+    Невозможно удалить статус, потому что он используется в задачах.
+</div>
+<a href="{% url 'status-list' %}" class="btn btn-secondary">Вернуться к списку статусов</a>
+{% else %}
 <form method="post">
     {% csrf_token %}
     <p>Вы уверены, что хотите удалить статус "{{ object.name }}"?</p>
-    <button type="submit" class="btn btn-danger">Удалить</button>
+    <button type="submit" class="btn btn-danger">Да, удалить</button>
     <a href="{% url 'status-list' %}" class="btn btn-secondary">Отмена</a>
 </form>
+{% endif %}
 {% endblock %}

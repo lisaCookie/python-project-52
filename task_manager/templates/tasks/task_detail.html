@@ -49,8 +49,10 @@
 </div>
 
 <div class="mt-3">
+    {% if user == task.author %}
     <a href="{% url 'task-update' task.pk %}" class="btn btn-primary">Редактировать</a>
     <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Удалить</a>
+    {% endif %}
     <a href="{% url 'task-list' %}" class="btn btn-secondary">К списку задач</a>
 </div>
 {% endblock %}

@@ -5,6 +5,7 @@ from django.views.generic import TemplateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 class IndexView(TemplateView):
@@ -18,14 +19,15 @@ class IndexView(TemplateView):
 
 class CustomLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/login.html'
-    success_message = "Вы успешно вошли в систему"
+    success_message = "Вы залогинены"
     
     def get_success_url(self):
         return reverse_lazy('index')
 
 
-class CustomLogoutView(SuccessMessageMixin, LogoutView):
-    success_message = "Вы успешно вышли из системы"
+class CustomLogoutView(LogoutView):
+    next_page = reverse_lazy('index')
     
-    def get_success_url(self):
-        return reverse_lazy('index')
+    def dispatch(self, request, *args, **kwargs):
+        messages.success(request, "Вы разлогинены")
+        return super().dispatch(request, *args, **kwargs)

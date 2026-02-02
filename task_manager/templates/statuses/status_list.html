@@ -1,19 +1,20 @@
-{% extends 'base.html' %}
-
-{% block title %}Статусы - Менеджер задач Hexlet{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
 <h1 class="my-4">Статусы</h1>
 
-<a href="{% url 'status-create' %}" class="btn btn-primary mb-3">Создать статус</a>
+{% if user.is_authenticated %}
+    <a class="btn btn-primary mb-3" href="{% url 'status-create' %}">Создать статус</a>
+{% endif %}
 
 <table class="table table-striped">
-    <thead class="thead-dark">
+    <thead>
         <tr>
             <th>ID</th>
             <th>Имя</th>
-            <th>Дата создания</th>
+            {% if user.is_authenticated %}
             <th>Действия</th>
+            {% endif %}
         </tr>
     </thead>
     <tbody>
@@ -21,10 +22,17 @@
         <tr>
             <td>{{ status.id }}</td>
             <td>{{ status.name }}</td>
-            <td>{{ status.created_at|date:"d.m.Y H:i" }}</td>
+            {% if user.is_authenticated %}
             <td>
-                <a href="{% url 'status-update' status.id %}" class="btn btn-primary btn-sm">Изменить</a>
-                <a href="{% url 'status-delete' status.id %}" class="btn btn-danger btn-sm">Удалить</a>
+                <a href="{% url 'status-update' status.id %}" class="btn btn-sm btn-primary">Изменить</a>
+                <a href="{% url 'status-delete' status.id %}" class="btn btn-sm btn-danger">Удалить</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="{% if user.is_authenticated %}3{% else %}2{% endif %}" class="text-center">
+                Статусы не найдены
             </td>
         </tr>
         {% endfor %}

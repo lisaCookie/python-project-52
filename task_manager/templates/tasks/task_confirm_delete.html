@@ -6,10 +6,17 @@
 {% block content %}
 <h1 class="my-4">Удаление задачи</h1>
 
+{% if user != task.author %}
+<div class="alert alert-danger">
+    Вы можете удалять только свои задачи.
+</div>
+<a href="{% url 'task-list' %}" class="btn btn-secondary">Вернуться к списку задач</a>
+{% else %}
 <form method="post">
     {% csrf_token %}
     <p>Вы уверены, что хотите удалить задачу "{{ task.name }}"?</p>
     <button type="submit" class="btn btn-danger">Да, удалить</button>
     <a href="{% url 'task-detail' task.pk %}" class="btn btn-secondary">Отмена</a>
 </form>
+{% endif %}
 {% endblock %}
