@@ -30,6 +30,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'user-list' %}">Пользователи</a>
                 </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'status-list' %}">Статусы</a>
                 </li>
@@ -39,6 +40,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'label_list' %}">Метки</a>
                 </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
@@ -53,7 +55,6 @@
                             </button>
                         </form>
                     </li>
-
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'login' %}">Вход</a>

@@ -28,7 +28,7 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
     model = Label
     form_class = LabelForm
     template_name = 'labels/label_form.html'
-    success_url = reverse_lazy('labels:label_list')
+    success_url = reverse_lazy('label_list')
     
     def form_valid(self, form):
         messages.success(self.request, 'Метка успешно изменена')
@@ -37,15 +37,15 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
 class LabelDeleteView(LoginRequiredMixin, DeleteView):
     model = Label
     template_name = 'labels/label_confirm_delete.html'
-    success_url = reverse_lazy('labels:label_list')
+    success_url = reverse_lazy('label_list')
     
     def post(self, request, *args, **kwargs):
         label = self.get_object()
         
         # Проверяем, связана ли метка с задачами
-        if label.task_set.exists():  # task_set - обратная связь от Task к Label
+        if label.tasks.exists():  # task_set - обратная связь от Task к Label
             messages.error(request, 'Невозможно удалить метку, которая связана с задачами.')
-            return redirect('labels:label_list')
+            return redirect('label_list')
         
         messages.success(request, 'Метка успешно удалена.')
         return super().post(request, *args, **kwargs)
