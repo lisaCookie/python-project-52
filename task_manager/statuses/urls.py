@@ -14,4 +14,3 @@ urlpatterns = [
     path('<int:pk>/update/', StatusUpdateView.as_view(), name='status-update'),
     path('<int:pk>/delete/', StatusDeleteView.as_view(), name='status-delete'),
 ]
-

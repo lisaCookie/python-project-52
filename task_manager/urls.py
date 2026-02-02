@@ -14,4 +14,3 @@ urlpatterns = [
     path('labels/', include('task_manager.labels.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
 ]
-

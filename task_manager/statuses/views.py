@@ -18,7 +18,6 @@ class StatusListView(LoginRequiredMixin, ListView):
 class StatusCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Status
     form_class = StatusForm 
-    fields = ['name']
     template_name = 'statuses/status_form.html'
     success_url = reverse_lazy('status-list')
     success_message = 'Статус успешно создан'
@@ -26,7 +25,6 @@ class StatusCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class StatusUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Status
     form_class = StatusForm
-    fields = ['name']
     template_name = 'statuses/status_form.html'
     success_url = reverse_lazy('status-list')
     success_message = 'Статус успешно изменен'
