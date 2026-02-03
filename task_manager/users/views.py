@@ -48,16 +48,20 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('user-list')
 
     def dispatch(self, request, *args, **kwargs):
-        try:
-            return super().dispatch(request, *args, **kwargs)
-        except PermissionDenied:
-            messages.error(request, "У вас нет прав для изменения другого пользователя.")
+        # Получаем объект пользователя
+        self.object = self.get_object()
+        
+        # Проверяем, пытается ли пользователь удалить самого себя
+        if self.object == request.user:
+            messages.error(request, "Невозможно удалить пользователя, потому что он используется")
             return redirect('user-list')
+        
+        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         user = super().get_object(queryset)
         if user != self.request.user:
-            raise PermissionDenied("У вас нет прав для изменения другого пользователя.")
+            raise PermissionDenied("У вас нет прав для удаления другого пользователя.")
         return user
 
     def delete(self, request, *args, **kwargs):
