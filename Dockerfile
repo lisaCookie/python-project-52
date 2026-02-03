@@ -14,4 +14,4 @@ COPY . .
 
 RUN python manage.py migrate 
 
-CMD ["gunicorn", "task_manager.wsgi:application", "--bind", "0.0.0.0:8000"]
+CMD ["sh", "-c", "sleep 5 && python manage.py migrate && gunicorn task_manager.wsgi:application --bind 0.0.0.0:8000"]
