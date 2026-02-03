@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
+from django.shortcuts import redirect 
 from .forms import UserRegisterForm, UserUpdateForm
 
 class UserListView(ListView):
@@ -28,10 +29,17 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_url = reverse_lazy('user-list')
     success_message = "Пользователь успешно изменен"
 
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except PermissionDenied:
+            messages.error(request, "У вас нет прав для изменения другого пользователя.")
+            return redirect('user-list')
+
     def get_object(self, queryset=None):
         user = super().get_object(queryset)
         if user != self.request.user:
-            raise PermissionDenied("Вы можете редактировать только свой профиль")
+            raise PermissionDenied("У вас нет прав для изменения другого пользователя.")
         return user
 
 class UserDeleteView(LoginRequiredMixin, DeleteView):
@@ -39,10 +47,17 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user-list')
 
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            return super().dispatch(request, *args, **kwargs)
+        except PermissionDenied:
+            messages.error(request, "У вас нет прав для изменения другого пользователя.")
+            return redirect('user-list')
+
     def get_object(self, queryset=None):
         user = super().get_object(queryset)
         if user != self.request.user:
-            raise PermissionDenied("Вы можете удалить только свой профиль")
+            raise PermissionDenied("У вас нет прав для изменения другого пользователя.")
         return user
 
     def delete(self, request, *args, **kwargs):
