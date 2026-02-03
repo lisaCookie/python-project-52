@@ -6,10 +6,16 @@
 <h1 class="my-4"></h1>
 <div class="card">
     <div class="card-body p-5 bg-light">
-        <div class="display-4">Привет от Хекслета!</div>
-        <p class="lead">Практические курсы по программированию</p>
-        <hr>
-        <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">Узнать больше</a>
+        <div class="display-4">Вас приветствует Менеджер задач!</div>
+        <hr> 
+        {# Добавляем кнопки для входа и регистрации #}
+        {% if not user.is_authenticated %}
+            <hr>
+            <div class="mt-3">
+                <a class="btn btn-success btn-lg me-2" href="{% url 'login' %}">Вход</a>
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'user-create' %}">Регистрация</a>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
