@@ -4,6 +4,7 @@
 {% block title %}Задача: {{ task.name }} - Менеджер задач Hexlet{% endblock %}
 
 {% block content %}
+<strong style="font-size: 48px;">Просмотр задачи</strong>
 <h1 class="my-4">{{ task.name }}</h1>
 
 <div class="card">
@@ -30,7 +31,7 @@
                 <p>{{ task.user.username|default:"Не назначен" }}</p>
             </div>
             <div class="col-md-6">
-                <strong>Создана:</strong>
+                <strong>Дата создания:</strong>
                 <p>{{ task.created_at|date:"d.m.Y H:i" }}</p>
             </div>
         </div>

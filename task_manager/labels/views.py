@@ -44,7 +44,7 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
         
         # Проверяем, связана ли метка с задачами
         if label.tasks.exists():  # task_set - обратная связь от Task к Label
-            messages.error(request, 'Невозможно удалить метку, которая связана с задачами.')
+            messages.error(request, 'Невозможно удалить метку, потому что она используется.')
             return redirect('label_list')
         
         messages.success(request, 'Метка успешно удалена.')

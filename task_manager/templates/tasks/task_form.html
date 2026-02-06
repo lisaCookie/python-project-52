@@ -2,12 +2,12 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    {% if form.instance.pk %}Редактирование задачи{% else %}Создание задачи{% endif %} - Менеджер задач Hexlet
+    {% if form.instance.pk %}Изменение задачи{% else %}Создание задачи{% endif %} - Менеджер задач Hexlet
 {% endblock %}
 
 {% block content %}
 <h1 class="my-4">
-    {% if form.instance.pk %}Редактирование задачи{% else %}Создание задачи{% endif %}
+    {% if form.instance.pk %}Изменение задачи{% else %}Создание задачи{% endif %}
 </h1>
 
 <form method="post">
