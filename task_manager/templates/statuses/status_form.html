@@ -1,12 +1,15 @@
+<!-- templates/statuses/status_form.html -->
+
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-    {% if form.instance.id %}Редактирование статуса{% else %}Создание статуса{% endif %} - Менеджер задач Hexlet
+    {% if form.instance.id %}{% trans "Edit status" %}{% else %}{% trans "Create status" %}{% endif %} - Менеджер задач Hexlet
 {% endblock %}
 
 {% block content %}
 <h1 class="my-4">
-    {% if form.instance.id %}Редактирование статуса{% else %}Создание статуса{% endif %}
+    {% if form.instance.id %}{% trans "Edit status" %}{% else %}{% trans "Create status" %}{% endif %}
 </h1>
 
 <form method="post">
@@ -23,8 +26,8 @@
     {% endfor %}
     
     <button type="submit" class="btn btn-primary">
-        {% if form.instance.id %}Сохранить{% else %}Создать{% endif %}
+        {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
     </button>
-    <a href="{% url 'status-list' %}" class="btn btn-secondary">Отмена</a>
+    <a href="{% url 'status-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
 {% endblock %}

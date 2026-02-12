@@ -1,10 +1,11 @@
-# labels/views.py
+# task_manager/labels/views.py
 
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.utils.translation import gettext as _
 from .models import Label
 from .forms import LabelForm
 
@@ -21,7 +22,7 @@ class LabelCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('label_list')
     
     def form_valid(self, form):
-        messages.success(self.request, 'Метка успешно создана')
+        messages.success(self.request, _('Label created successfully'))
         return super().form_valid(form)
 
 class LabelUpdateView(LoginRequiredMixin, UpdateView):
@@ -31,7 +32,7 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('label_list')
     
     def form_valid(self, form):
-        messages.success(self.request, 'Метка успешно изменена')
+        messages.success(self.request, _('Label updated successfully'))
         return super().form_valid(form)
 
 class LabelDeleteView(LoginRequiredMixin, DeleteView):
@@ -42,10 +43,9 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
     def post(self, request, *args, **kwargs):
         label = self.get_object()
         
-        # Проверяем, связана ли метка с задачами
-        if label.tasks.exists():  # task_set - обратная связь от Task к Label
-            messages.error(request, 'Невозможно удалить метку, потому что она используется.')
+        if label.tasks.exists():
+            messages.error(request, _('It is impossible to delete the label because it is being used'))
             return redirect('label_list')
         
-        messages.success(request, 'Метка успешно удалена.')
+        messages.success(request, _('Label deleted successfully'))
         return super().post(request, *args, **kwargs)

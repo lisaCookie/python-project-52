@@ -1,5 +1,7 @@
+<!-- templates/users/login.html -->
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block title %}Вход - Менеджер задач Hexlet{% endblock %}
 
@@ -10,7 +12,7 @@
             <h1 class="my-4">Вход</h1>
             {% if form.errors %}
                 <div class="alert alert-danger">
-                    Неправильное имя пользователя или пароль. Пожалуйста, попробуйте снова.
+                    {% trans "Неправильное имя пользователя или пароль. Пожалуйста, попробуйте снова." %}
                 </div>
             {% endif %}
 

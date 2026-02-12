@@ -1,14 +1,16 @@
+<!-- templates/users/user_confirm_delete.html -->
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}Удаление пользователя - Менеджер задач Hexlet{% endblock %}
 
 {% block content %}
-<h1 class="my-4">Удаление пользователя</h1>
+<h1 class="my-4">{% trans "Удаление пользователя" %}</h1>
 
 <form method="post">
     {% csrf_token %}
-    <p>Вы уверены, что хотите удалить пользователя "{{ object.username }}"?</p>
-    <button type="submit" class="btn btn-danger">Да, удалить</button>
-    <a href="{% url 'user-list' %}" class="btn btn-secondary">Отмена</a>
+    <p>{% blocktrans %}Вы уверены, что хотите удалить пользователя "{{ object.username }}"?{% endblocktrans %}</p>
+    <button type="submit" class="btn btn-danger">{% trans "Да, удалить" %}</button>
+    <a href="{% url 'user-list' %}" class="btn btn-secondary">{% trans "Отмена" %}</a>
 </form>
 {% endblock %}

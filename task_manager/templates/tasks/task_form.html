@@ -1,13 +1,14 @@
 <!-- templates/tasks/task_form.html -->
 {% extends 'base.html' %}
+{% load i18n %}
 
 {% block title %}
-    {% if form.instance.pk %}Изменение задачи{% else %}Создание задачи{% endif %} - Менеджер задач Hexlet
+    {% if form.instance.pk %}{% trans "Update task" %}{% else %}{% trans "Create task" %}{% endif %} - Менеджер задач Hexlet
 {% endblock %}
 
 {% block content %}
 <h1 class="my-4">
-    {% if form.instance.pk %}Изменение задачи{% else %}Создание задачи{% endif %}
+    {% if form.instance.pk %}{% trans "Update task" %}{% else %}{% trans "Create task" %}{% endif %}
 </h1>
 
 <form method="post">
@@ -27,8 +28,8 @@
     {% endfor %}
     
     <button type="submit" class="btn btn-primary">
-        {% if form.instance.pk %}Обновить{% else %}Создать{% endif %}
+        {% if form.instance.pk %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
     </button>
-    <a href="{% url 'task-list' %}" class="btn btn-secondary">К списку задач</a>
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">{% trans "Back to task list" %}</a>
 </form>
 {% endblock %}

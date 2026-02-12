@@ -1,5 +1,7 @@
 # tasks/forms.py
+# tasks/forms.py
 from django import forms
+from django.utils.translation import gettext_lazy as _
 from .models import Task
 from task_manager.labels.models import Label
 
@@ -8,7 +10,7 @@ class TaskForm(forms.ModelForm):
         queryset=Label.objects.all(),
         widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
         required=False,
-        label='Метки'
+        label=_('Labels')
     )
     
     class Meta:

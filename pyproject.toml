@@ -18,9 +18,3 @@ dependencies = [
     "rollbar>=1.3.0",
     "dj-database-url>=2.1.0",
 ]
-
-[tool.uv.workspace]
-members = [
-    "task_manager",
-    "python-project-52",
-]

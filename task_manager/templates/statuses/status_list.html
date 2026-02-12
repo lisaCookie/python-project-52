@@ -1,19 +1,22 @@
+<!-- templates/statuses/status_list.html -->
+
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block content %}
-<h1 class="my-4">Статусы</h1>
+<h1 class="my-4">{% trans "Statuses" %}</h1>
 
 {% if user.is_authenticated %}
-    <a class="btn btn-primary mb-3" href="{% url 'status-create' %}">Создать статус</a>
+    <a class="btn btn-primary mb-3" href="{% url 'status-create' %}">{% trans "Create status" %}</a>
 {% endif %}
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
-            <th>Имя</th>
+            <th>{% trans "Name" %}</th>
             {% if user.is_authenticated %}
-            <th>Действия</th>
+            <th>{% trans "Actions" %}</th>
             {% endif %}
         </tr>
     </thead>
@@ -24,15 +27,15 @@
             <td>{{ status.name }}</td>
             {% if user.is_authenticated %}
             <td>
-                <a href="{% url 'status-update' status.id %}" class="btn btn-sm btn-primary">Изменить</a>
-                <a href="{% url 'status-delete' status.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                <a href="{% url 'status-update' status.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a>
+                <a href="{% url 'status-delete' status.id %}" class="btn btn-sm btn-danger">{% trans "Delete" %}</a>
             </td>
             {% endif %}
         </tr>
         {% empty %}
         <tr>
             <td colspan="{% if user.is_authenticated %}3{% else %}2{% endif %}" class="text-center">
-                Статусы не найдены
+                {% trans "No statuses found" %}
             </td>
         </tr>
         {% endfor %}

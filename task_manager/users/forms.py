@@ -1,8 +1,7 @@
 # users/forms.py
-
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 class UserRegisterForm(UserCreationForm):
     class Meta:
@@ -16,8 +15,8 @@ class UserRegisterForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         
         # Упрощенные сообщения помощи для пароля
-        self.fields['password1'].help_text = _('Пароль должен содержать минимум 3 символа.')
-        self.fields['password2'].help_text = _('Введите тот же пароль для подтверждения.')
+        self.fields['password1'].help_text = _('Ваш пароль должен содержать как минимум 3 символа.')
+        self.fields['password2'].help_text = _('Для подтверждения введите, пожалуйста, пароль ещё раз.')
         
         # Русские метки
         self.fields['password1'].label = _('Пароль')

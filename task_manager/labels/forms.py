@@ -1,7 +1,7 @@
 # task_manager/labels/forms.py
-
 from django import forms
 from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
 from .models import Label
 
 class LabelForm(forms.ModelForm):
@@ -9,7 +9,7 @@ class LabelForm(forms.ModelForm):
         model = Label
         fields = ['name']
         labels = {
-            'name': 'Название'
+            'name': _('Name')
         }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'})
@@ -19,10 +19,8 @@ class LabelForm(forms.ModelForm):
         name = self.cleaned_data['name']
         if Label.objects.filter(name=name).exists():
             if self.instance and self.instance.pk:
-                # Для редактирования
                 if Label.objects.filter(name=name).exclude(pk=self.instance.pk).exists():
-                    raise ValidationError("Метка с таким именем уже существует")
+                    raise ValidationError(_("Label with this name already exists"))
             else:
-                # Для создания
-                raise ValidationError("Метка с таким именем уже существует")
+                raise ValidationError(_("Label with this name already exists"))
         return name

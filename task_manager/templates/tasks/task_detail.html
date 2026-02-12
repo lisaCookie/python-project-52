@@ -1,44 +1,45 @@
 <!-- templates/tasks/task_detail.html -->
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Задача: {{ task.name }} - Менеджер задач Hexlet{% endblock %}
+{% block title %}{% trans "Task detail" %}: {{ task.name }} - Менеджер задач Hexlet{% endblock %}
 
 {% block content %}
-<strong style="font-size: 48px;">Просмотр задачи</strong>
+<strong style="font-size: 48px;">{% trans "Task detail" %}</strong>
 <h1 class="my-4">{{ task.name }}</h1>
 
 <div class="card">
     <div class="card-body">
         <div class="mb-3">
-            <strong>Описание:</strong>
-            <p class="mt-1">{{ task.description|default:"Нет описания" }}</p>
+            <strong>{% trans "Description:" %}</strong>
+            <p class="mt-1">{{ task.description|default:"No description" }}</p>
         </div>
         
         <div class="row">
             <div class="col-md-6">
-                <strong>Статус:</strong>
+                <strong>{% trans "Status:" %}</strong>
                 <p>{{ task.status.name }}</p>
             </div>
             <div class="col-md-6">
-                <strong>Автор:</strong>
+                <strong>{% trans "Author:" %}</strong>
                 <p>{{ task.author.username }}</p>
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-6">
-                <strong>Исполнитель:</strong>
-                <p>{{ task.user.username|default:"Не назначен" }}</p>
+                <strong>{% trans "Executor:" %}</strong>
+                <p>{{ task.user.username|default:"Not assigned" }}</p>
             </div>
             <div class="col-md-6">
-                <strong>Дата создания:</strong>
+                <strong>{% trans "Creation date:" %}</strong>
                 <p>{{ task.created_at|date:"d.m.Y H:i" }}</p>
             </div>
         </div>
         
         {% if task.labels.all %}
         <div class="mb-3">
-            <strong>Метки:</strong>
+            <strong>{% trans "Labels:" %}</strong>
             <ul>
                 {% for label in task.labels.all %}
                 <li>{{ label.name }}</li>
@@ -51,9 +52,9 @@
 
 <div class="mt-3">
     {% if user == task.author %}
-    <a href="{% url 'task-update' task.pk %}" class="btn btn-primary">Редактировать</a>
-    <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">Удалить</a>
+    <a href="{% url 'task-update' task.pk %}" class="btn btn-primary">{% trans "Edit" %}</a>
+    <a href="{% url 'task-delete' task.pk %}" class="btn btn-danger">{% trans "Delete" %}</a>
     {% endif %}
-    <a href="{% url 'task-list' %}" class="btn btn-secondary">К списку задач</a>
+    <a href="{% url 'task-list' %}" class="btn btn-secondary">{% trans "Back to task list" %}</a>
 </div>
 {% endblock %}

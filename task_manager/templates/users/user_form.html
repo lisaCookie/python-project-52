@@ -1,23 +1,23 @@
+<!-- templates/users/user_form.html -->
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block title %}
-    {% if form.instance.id %}Редактирование пользователя{% else %}Создание пользователя{% endif %} - Менеджер задач Hexlet
+    {% if form.instance.id %}{% trans "Редактирование пользователя" %}{% else %}{% trans "Регистрация" %}{% endif %} - Менеджер задач Hexlet
 {% endblock %}
 
 {% block content %}
 <h1 class="my-4">
-    {% if form.instance.id %}Редактирование пользователя{% else %}Создание пользователя{% endif %}
+    {% if form.instance.id %}{% trans "Редактирование пользователя" %}{% else %}{% trans "Регистрация" %}{% endif %}
 </h1>
 
 <form method="post">
     {% csrf_token %}
-    
     {% bootstrap_form form %}
     
     <button type="submit" class="btn btn-primary">
-        {% if form.instance.id %}Сохранить{% else %}Создать{% endif %}
+        {% if form.instance.id %}{% trans "Сохранить" %}{% else %}{% trans "Создать" %}{% endif %}
     </button>
-    <a href="{% url 'user-list' %}" class="btn btn-secondary">Отмена</a>
 </form>
 {% endblock %}

@@ -1,7 +1,7 @@
 # users/views.py
-
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
@@ -20,26 +20,26 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserRegisterForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('login')
-    success_message = "Пользователь успешно зарегистрирован"
+    success_message = _('Пользователь успешно зарегистрирован')
 
 class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = User
     form_class = UserUpdateForm
     template_name = 'users/user_form.html'
     success_url = reverse_lazy('user-list')
-    success_message = "Пользователь успешно изменен"
+    success_message = _('Пользователь успешно изменен')
 
     def dispatch(self, request, *args, **kwargs):
         try:
             return super().dispatch(request, *args, **kwargs)
         except PermissionDenied:
-            messages.error(request, "У вас нет прав для изменения другого пользователя.")
+            messages.error(request, _('У вас нет прав для изменения другого пользователя.'))
             return redirect('user-list')
 
     def get_object(self, queryset=None):
         user = super().get_object(queryset)
         if user != self.request.user:
-            raise PermissionDenied("У вас нет прав для изменения другого пользователя.")
+            raise PermissionDenied(_('У вас нет прав для изменения другого пользователя.'))
         return user
 
 class UserDeleteView(LoginRequiredMixin, DeleteView):
@@ -53,7 +53,7 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
         
         # Проверяем, пытается ли пользователь удалить самого себя
         if self.object == request.user:
-            messages.error(request, "Невозможно удалить пользователя, потому что он используется")
+            messages.error(request, _('Невозможно удалить пользователя, потому что он используется'))
             return redirect('user-list')
         
         return super().dispatch(request, *args, **kwargs)
@@ -61,20 +61,20 @@ class UserDeleteView(LoginRequiredMixin, DeleteView):
     def get_object(self, queryset=None):
         user = super().get_object(queryset)
         if user != self.request.user:
-            raise PermissionDenied("У вас нет прав для удаления другого пользователя.")
+            raise PermissionDenied(_('У вас нет прав для изменения другого пользователя.'))
         return user
 
     def delete(self, request, *args, **kwargs):
-        messages.success(request, "Пользователь успешно удален")
+        messages.success(request, _('Пользователь успешно удален'))
         return super().delete(request, *args, **kwargs)
 
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/login.html'
-    success_message = "Вы залогинены"
+    success_message = _('Вы залогинены')
 
 class UserLogoutView(LogoutView):
     next_page = reverse_lazy('index')
     
     def dispatch(self, request, *args, **kwargs):
-        messages.success(request, "Вы разлогинены")
+        messages.success(request, _('Вы разлогинены'))
         return super().dispatch(request, *args, **kwargs)

@@ -1,21 +1,24 @@
-{% extends 'base.html' %}
+<!-- templates/statuses/status_confirm_delete.html -->
 
-{% block title %}Удаление статуса - Менеджер задач Hexlet{% endblock %}
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Delete status" %} - Менеджер задач Hexlet{% endblock %}
 
 {% block content %}
-<h1 class="my-4">Удаление статуса</h1>
+<h1 class="my-4">{% trans "Delete status" %}</h1>
 
 {% if has_related_tasks %}
 <div class="alert alert-danger">
-    Невозможно удалить статус, потому что он используется в задачах.
+    {% trans "It is impossible to delete the status because it is being used" %}
 </div>
-<a href="{% url 'status-list' %}" class="btn btn-secondary">Вернуться к списку статусов</a>
+<a href="{% url 'status-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 {% else %}
 <form method="post">
     {% csrf_token %}
-    <p>Вы уверены, что хотите удалить статус "{{ object.name }}"?</p>
-    <button type="submit" class="btn btn-danger">Да, удалить</button>
-    <a href="{% url 'status-list' %}" class="btn btn-secondary">Отмена</a>
+    <p>{% blocktrans %}Are you sure you want to delete {{ object.name }}?{% endblocktrans %}</p>
+    <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
+    <a href="{% url 'status-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
 {% endif %}
 {% endblock %}

@@ -1,22 +1,23 @@
 <!-- templates/tasks/task_confirm_delete.html -->
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Удаление задачи - Менеджер задач Hexlet{% endblock %}
+{% block title %}{% trans "Delete task" %} - Менеджер задач Hexlet{% endblock %}
 
 {% block content %}
-<h1 class="my-4">Удаление задачи</h1>
+<h1 class="my-4">{% trans "Delete task" %}</h1>
 
 {% if user != task.author %}
 <div class="alert alert-danger">
-    Вы можете удалять только свои задачи.
+    {% trans "You can only delete your own tasks." %}
 </div>
-<a href="{% url 'task-list' %}" class="btn btn-secondary">Вернуться к списку задач</a>
+<a href="{% url 'task-list' %}" class="btn btn-secondary">{% trans "Back to task list" %}</a>
 {% else %}
 <form method="post">
     {% csrf_token %}
-    <p>Вы уверены, что хотите удалить задачу {{ task.name }}?</p>
-    <button type="submit" class="btn btn-danger">Да, удалить</button>
-    <a href="{% url 'task-detail' task.pk %}" class="btn btn-secondary">Отмена</a>
+    {% blocktrans %}Are you sure you want to delete the task {{ task.name }}?{% endblocktrans %}
+    <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
+    <a href="{% url 'task-detail' task.pk %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
 {% endif %}
 {% endblock %}
