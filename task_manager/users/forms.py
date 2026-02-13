@@ -6,9 +6,11 @@ from django.contrib.auth.models import User
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'password1', 'password2']  # <-- Добавлены first_name, last_name
         labels = {
             'username': _('Имя пользователя'),
+            'first_name': _('Имя'),
+            'last_name': _('Фамилия'),
         }
     
     def __init__(self, *args, **kwargs):

@@ -4,12 +4,12 @@
 {% load i18n %}
 
 {% block title %}
-    {% if form.instance.id %}{% trans "Edit User" %}{% else %}{% trans "Register" %}{% endif %} - Hexlet Task Manager
+    {% if form.instance.id %}{% trans "Edit User" %}{% else %}{% trans "Registration" %}{% endif %} - Hexlet Task Manager
 {% endblock %}
 
 {% block content %}
 <h1 class="my-4">
-    {% if form.instance.id %}{% trans "Edit User" %}{% else %}{% trans "Register" %}{% endif %}
+    {% if form.instance.id %}{% trans "Edit User" %}{% else %}{% trans "Registration" %}{% endif %}
 </h1>
 
 <form method="post">
