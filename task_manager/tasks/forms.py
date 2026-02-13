@@ -1,5 +1,4 @@
 # tasks/forms.py
-# tasks/forms.py
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import Task
@@ -17,8 +16,8 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['name', 'description', 'status', 'user', 'labels']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Имя')}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4, 'placeholder': _('Описание')}),
             'status': forms.Select(attrs={'class': 'form-control'}),
             'user': forms.Select(attrs={'class': 'form-control'}),
         }

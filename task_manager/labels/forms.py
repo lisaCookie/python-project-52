@@ -12,7 +12,7 @@ class LabelForm(forms.ModelForm):
             'name': _('Name')
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'})
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Имя')})  # ✅ Добавлено
         }
     
     def clean_name(self):

@@ -4,12 +4,12 @@
 {% load i18n %}
 
 {% block title %}
-    {% if form.instance.id %}{% trans "Редактирование пользователя" %}{% else %}{% trans "Регистрация" %}{% endif %} - Менеджер задач Hexlet
+    {% if form.instance.id %}{% trans "Edit User" %}{% else %}{% trans "Register" %}{% endif %} - Hexlet Task Manager
 {% endblock %}
 
 {% block content %}
 <h1 class="my-4">
-    {% if form.instance.id %}{% trans "Редактирование пользователя" %}{% else %}{% trans "Регистрация" %}{% endif %}
+    {% if form.instance.id %}{% trans "Edit User" %}{% else %}{% trans "Register" %}{% endif %}
 </h1>
 
 <form method="post">
@@ -17,7 +17,7 @@
     {% bootstrap_form form %}
     
     <button type="submit" class="btn btn-primary">
-        {% if form.instance.id %}{% trans "Сохранить" %}{% else %}{% trans "Создать" %}{% endif %}
+        {% if form.instance.id %}{% trans "Update" %}{% else %}{% trans "Register" %}{% endif %}
     </button>
 </form>
 {% endblock %}

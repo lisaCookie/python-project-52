@@ -3,21 +3,21 @@
 {% load i18n %}
 
 {% block content %}
-<h1 class="my-4">{% trans "Пользователи" %}</h1>
+<h1 class="my-4">{% trans "Users" %}</h1>
 
 {% if user.is_authenticated %}
-    <a class="btn btn-primary mb-3" href="{% url 'user-create' %}">{% trans "Создать пользователя" %}</a>
+    <a class="btn btn-primary mb-3" href="{% url 'user-create' %}">{% trans "Create User" %}</a>
 {% endif %}
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>ID</th>
-            <th>{% trans "Имя пользователя" %}</th>
-            <th>{% trans "Полное имя" %}</th>
-            <th>{% trans "Дата создания" %}</th>
+            <th>{% trans "Username" %}</th>
+            <th>{% trans "Full Name" %}</th>
+            <th>{% trans "Created Date" %}</th>
             {% if user.is_authenticated %}
-            <th>{% trans "Действия" %}</th>
+            <th>{% trans "Actions" %}</th>
             {% endif %}
         </tr>
     </thead>
@@ -30,15 +30,15 @@
             <td>{{ user_obj.date_joined|date:"d.m.Y H:i" }}</td>
             {% if user.is_authenticated %}
             <td>
-                <a href="{% url 'user-update' user_obj.id %}" class="btn btn-sm btn-primary">{% trans "Изменить" %}</a>
-                <a href="{% url 'user-delete' user_obj.id %}" class="btn btn-sm btn-danger">{% trans "Удалить" %}</a>
+                <a href="{% url 'user-update' user_obj.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a>
+                <a href="{% url 'user-delete' user_obj.id %}" class="btn btn-sm btn-danger">{% trans "Delete" %}</a>
             </td>
             {% endif %}
         </tr>
         {% empty %}
         <tr>
             <td colspan="{% if user.is_authenticated %}5{% else %}4{% endif %}" class="text-center">
-                {% trans "Пользователи не найдены" %}
+                {% trans "No users found" %}
             </td>
         </tr>
         {% endfor %}

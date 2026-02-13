@@ -11,35 +11,35 @@
 <div class="card">
     <div class="card-body">
         <div class="mb-3">
-            <strong>{% trans "Description:" %}</strong>
+            <strong>{% trans "Description" %}</strong>
             <p class="mt-1">{{ task.description|default:"No description" }}</p>
         </div>
         
         <div class="row">
             <div class="col-md-6">
-                <strong>{% trans "Status:" %}</strong>
+                <strong>{% trans "Status" %}</strong>
                 <p>{{ task.status.name }}</p>
             </div>
             <div class="col-md-6">
-                <strong>{% trans "Author:" %}</strong>
+                <strong>{% trans "Author" %}</strong>
                 <p>{{ task.author.username }}</p>
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-6">
-                <strong>{% trans "Executor:" %}</strong>
+                <strong>{% trans "Executor" %}</strong>
                 <p>{{ task.user.username|default:"Not assigned" }}</p>
             </div>
             <div class="col-md-6">
-                <strong>{% trans "Creation date:" %}</strong>
+                <strong>{% trans "Creation date" %}</strong>
                 <p>{{ task.created_at|date:"d.m.Y H:i" }}</p>
             </div>
         </div>
         
         {% if task.labels.all %}
         <div class="mb-3">
-            <strong>{% trans "Labels:" %}</strong>
+            <strong>{% trans "Labels" %}</strong>
             <ul>
                 {% for label in task.labels.all %}
                 <li>{{ label.name }}</li>
