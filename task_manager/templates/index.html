@@ -11,14 +11,7 @@
     <div class="card-body p-5 bg-light">
         <div class="display-4">{% trans "Welcome to the Task Manager!" %}</div>
         <hr> 
-        {# Добавляем кнопки для входа и регистрации #}
-        {% if not user.is_authenticated %}
-            <hr>
-            <div class="mt-3">
-                <a class="btn btn-success btn-lg me-2" href="{% url 'login' %}">{% trans "login" %}</a>
-                <a class="btn btn-outline-primary btn-lg" href="{% url 'user-create' %}">{% trans "Registration" %}</a>
-            </div>
-        {% endif %}
+        {# Удалены кнопки входа и регистрации #}
     </div>
 </div>
 {% endblock %}
