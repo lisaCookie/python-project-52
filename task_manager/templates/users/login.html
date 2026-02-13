@@ -19,7 +19,8 @@
             <form method="post" novalidate>
                 {% csrf_token %}
                 {% bootstrap_form form %}
-                {% bootstrap_button button_type="submit" content=_('login') %}
+                {% trans 'Log in' as login_text %}
+                {% bootstrap_button login_text button_type="submit" button_class="btn-primary" %}
             </form>
         </div>
     </div>
