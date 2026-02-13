@@ -76,7 +76,7 @@ msgstr "Добро пожаловать в Менеджер задач!"
 #: task_manager/templates/index.html:21
 #: task_manager/templates/users/login.html:12
 #: task_manager/templates/base.html:62
-msgid "login"
+msgid "Login"
 msgstr "Вход"
 
 #: task_manager/templates/users/login.html:13
