@@ -55,8 +55,7 @@ msgstr "Привет,"
 msgid "Logout"
 msgstr "Выход"
 
-#: task_manager/templates/base.html:59
-#: task_manager/templates/users/login.html:17
+#: task_manager/templates/users/login.html:23
 msgid "Log in"
 msgstr "Войти"
 
@@ -74,7 +73,6 @@ msgstr "Hexlet"
 msgid "Welcome to the Task Manager!"
 msgstr "Добро пожаловать в Менеджер задач!"
 
-#: task_manager/templates/index.html:21
 #: task_manager/templates/users/login.html:12
 #: task_manager/templates/base.html:62
 msgid "Login"
