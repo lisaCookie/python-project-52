@@ -3,6 +3,8 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import Task
 from task_manager.labels.models import Label
+from task_manager.users.models import User  # ← новый импорт
+
 
 class TaskForm(forms.ModelForm):
     labels = forms.ModelMultipleChoiceField(
@@ -23,17 +25,15 @@ class TaskForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'rows': 4, 'placeholder': _('Описание')}
             ),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            # строка ниже заменяется на ModelChoiceField с empty_label
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['status'].required = True
-        # переопределяем user, чтобы добавить пустой пункт
         self.fields['user'] = forms.ModelChoiceField(
-            queryset=self.fields['user'].queryset,
-            required=True,
-            empty_label='---------',   # вот он – option с value=""
+            queryset=User.objects.all(),
+            required=False,
+            empty_label='---------',
             widget=forms.Select(attrs={'class': 'form-control'}),
             label=_('Исполнитель')
         )
