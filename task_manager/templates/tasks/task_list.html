@@ -12,7 +12,7 @@
             <div class="col-md-3">
                 <label for="status" class="form-label">{% trans "Status" %}</label>
                 <select name="status" id="status" class="form-select">
-                    <option value="">{% trans "All statuses" %}</option>
+                    <option value="">---------</option>
                     {% for status in statuses %}
                         <option value="{{ status.id }}" {% if current_status == status.id|stringformat:"s" %}selected{% endif %}>
                             {{ status.name }}
@@ -20,11 +20,11 @@
                     {% endfor %}
                 </select>
             </div>
-            
+
             <div class="col-md-3">
                 <label for="user" class="form-label">{% trans "Executor" %}</label>
                 <select name="user" id="user" class="form-select">
-                    <option value="">{% trans "All executors" %}</option>
+                    <option value="">---------</option>
                     {% for user in users %}
                         <option value="{{ user.id }}" {% if current_user == user.id|stringformat:"s" %}selected{% endif %}>
                             {{ user.username }}
@@ -32,11 +32,11 @@
                     {% endfor %}
                 </select>
             </div>
-            
+
             <div class="col-md-3">
                 <label for="label" class="form-label">{% trans "Label" %}</label>
                 <select name="label" id="label" class="form-select">
-                    <option value="">{% trans "All labels" %}</option>
+                    <option value="">---------</option>
                     {% for label in labels %}
                         <option value="{{ label.id }}" {% if current_label == label.id|stringformat:"s" %}selected{% endif %}>
                             {{ label.name }}
@@ -44,17 +44,17 @@
                     {% endfor %}
                 </select>
             </div>
-            
+
             <div class="col-md-3">
                 <div class="form-check mt-4">
-                    <input class="form-check-input" type="checkbox" name="self_task" id="self_task" 
+                    <input class="form-check-input" type="checkbox" name="self_task" id="self_task"
                            value="true" {% if self_task %}checked{% endif %}>
                     <label class="form-check-label" for="self_task">
                         {% trans "Only your own tasks" %}
                     </label>
                 </div>
             </div>
-            
+
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">{% trans "Show" %}</button>
                 <a href="{% url 'task-list' %}" class="btn btn-secondary">{% trans "Reset" %}</a>
@@ -63,10 +63,8 @@
     </div>
 </div>
 
-<!-- Кнопка создания задачи -->
 <a class="btn btn-primary mb-3" href="{% url 'task-create' %}">{% trans "Create task" %}</a>
 
-<!-- Таблица задач -->
 <table class="table table-striped">
     <thead>
         <tr>
