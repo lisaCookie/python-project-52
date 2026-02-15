@@ -354,5 +354,5 @@ msgstr "Вы уверены, что хотите удалить %(task)s?"
 
 #: task_manager/templates/users/user_confirm_delete.html.html:11
 #, python-format
-msgid "Are you sure you want to delete %(username)s?"
-msgstr "Вы уверены, что хотите удалить %(username)s?"
+msgid "Are you sure you want to delete %(user)s?"
+msgstr "Вы уверены, что хотите удалить %(user)s?"
