@@ -52,7 +52,7 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = User
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user-list')
-    success_message = _('Пользователь успешно удалён')
+    success_message = _('Пользователь успешно удален')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.pk != int(kwargs['pk']):
