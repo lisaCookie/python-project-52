@@ -42,33 +42,35 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             raise PermissionDenied(_('У вас нет прав для изменения другого пользователя.'))
         return user
 
+from django.urls import reverse_lazy
+from django.contrib import messages
+from django.shortcuts import redirect
+
+from django.shortcuts import redirect
+from django.contrib import messages
+
 class UserDeleteView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = 'users/user_confirm_delete.html'
     success_url = reverse_lazy('user-list')
 
     def dispatch(self, request, *args, **kwargs):
-        # Проверяем, пытается ли пользователь удалить КОГО-ТО ДРУГОГО
+        # Разрешаем доступ только для удаления самого себя
         if request.user.id != int(kwargs['pk']):
             messages.error(request, _('У вас нет прав для изменения другого пользователя.'))
-            return redirect('user-list')
-        
-        # Пытается удалить самого себя — запрещено
-        if request.user.id == int(kwargs['pk']):
-            messages.error(request, _('Невозможно удалить пользователя, потому что он используется'))
             return redirect('user-list')
         
         return super().dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
-        # Уже проверено в dispatch — возвращаем текущего пользователя
         return self.request.user
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, _('Пользователь успешно удален'))
-        return super().delete(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):
+        # При попытке удаления показываем ошибку и редиректим
+        messages.error(request, _('Невозможно удалить пользователя, потому что он используется'))
+        return redirect('user-list')
 
-
+    
 class UserLoginView(SuccessMessageMixin, LoginView):
     template_name = 'users/login.html'
     success_message = _('Вы залогинены')

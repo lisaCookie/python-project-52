@@ -5,12 +5,15 @@
 {% block title %}Delete User - Hexlet Task Manager{% endblock %}
 
 {% block content %}
-<h1 class="my-4">{% trans "Delete User" %}</h1>
-
-<form method="post">
-    {% csrf_token %}
-    <p>{% blocktrans %}Are you sure you want to delete the user "{{ object.username }}"?{% endblocktrans %}</p>
-    <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
-    <a href="{% url 'user-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
-</form>
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">{% trans "Delete User" %}</h1>
+    
+    <p>{% blocktrans %}Are you sure you want to delete {{ user }}?{% endblocktrans %}</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
+        <a href="{% url 'user-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    </form>
+</div>
 {% endblock %}

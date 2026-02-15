@@ -16,7 +16,7 @@
 {% else %}
 <form method="post">
     {% csrf_token %}
-    <p>{% blocktrans %}Are you sure you want to delete {{ object.name }}?{% endblocktrans %}</p>
+    <p>{% blocktrans %}Are you sure you want to delete {{ status }}?{% endblocktrans %}</p>
     <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
     <a href="{% url 'status-list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>

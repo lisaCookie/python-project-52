@@ -121,6 +121,10 @@ msgstr "Пользователи не найдены"
 msgid "Delete User"
 msgstr "Удалить пользователя"
 
+#: task_manager/templates/users/user_confirm_delete.html:7
+msgid "Are you sure you want to delete the «{{ task.name }}»?"
+msgstr "Вы уверены, что хотите удалить «{{ task.name }}»?"
+
 #: task_manager/templates/users/user_confirm_delete.html:11
 #: task_manager/templates/statuses/status_confirm_delete.html:16
 #: task_manager/templates/labels/label_confirm_delete.html:11
@@ -143,6 +147,18 @@ msgstr "Изменение статуса"
 #: task_manager/templates/statuses/status_list.html:16
 msgid "Create status"
 msgstr "Создать статус"
+
+#: task_manager/statuses/views.py:25
+msgid "Status successfully created"
+msgstr "Статус успешно создан"
+
+#: task_manager/statuses/views.py:35
+msgid "Status successfully changed"
+msgstr "Статус успешно изменен"
+
+#: task_manager/statuses/views.py:50
+msgid "Status successfully deleted"
+msgstr "Статус успешно удален"
 
 #: task_manager/templates/statuses/status_list.html:25
 #: task_manager/templates/labels/label_list.html:25
@@ -171,6 +187,22 @@ msgstr "Изменение метки"
 msgid "Create label"
 msgstr "Создать метку"
 
+#: task_manager/labels/views.py:25
+msgid "Label successfully created"
+msgstr "Метка успешно создана"
+
+#: task_manager/labels/views.py:35
+msgid "Label successfully changed"
+msgstr "Метка успешно изменена"
+
+#: task_manager/labels/views.py:47
+msgid "It is impossible to delete the label because it is being used"
+msgstr "Невозможно удалить метку, потому что она используется"
+
+#: task_manager/labels/views.py:50
+msgid "Label successfully deleted"
+msgstr "Метка успешно удалена"
+
 #: task_manager/templates/labels/label_list.html:26
 #: task_manager/templates/tasks/task_list.html:59
 #: task_manager/templates/tasks/task_detail.html:36
@@ -193,6 +225,18 @@ msgstr "Изменение задачи"
 #: task_manager/templates/tasks/task_list.html:44
 msgid "Create task"
 msgstr "Создать задачу"
+
+#: task_manager/tasks/views.py:67
+msgid "Task successfully created"
+msgstr "Задача успешно создана"
+
+#: task_manager/tasks/views.py:78
+msgid "Task successfully updated"
+msgstr "Задача успешно изменена"
+
+#: task_manager/tasks/views.py:84
+msgid "Task successfully deleted"
+msgstr "Задача успешно удалена"
 
 #: task_manager/templates/tasks/task_list.html:18
 #: task_manager/templates/tasks/task_list.html:56
@@ -259,6 +303,10 @@ msgstr "Удалить задачу"
 msgid "You can only delete your own tasks."
 msgstr "Вы можете удалять только свои задачи."
 
+#: task_manager/tasks/views.py:91
+msgid "Only the author can delete an issue."
+msgstr "Задачу может удалить только ее автор"
+
 #: task_manager/templates/tasks/task_confirm_delete.html:19
 msgid "Are you sure you want to delete the task {{ task.name }}?"
 msgstr "Вы уверены, что хотите удалить задачу «{{ task.name }}»?"
@@ -278,13 +326,6 @@ msgstr "Изменить"
 msgid "Create"
 msgstr "Создать"
 
-#: task_manager/templates/labels/label_confirm_delete.html:10
-#: task_manager/templates/statuses/status_confirm_delete.html:15
-#: task_manager/templates/tasks/task_confirm_delete.html:19
-#: task_manager/templates/users/user_confirm_delete.html:11
-msgid "Are you sure you want to delete {{ object.name }}?"
-msgstr "Вы уверены, что хотите удалить {{ object.name }}?"
-
 #: task_manager/templates/tasks/task_list.html:21
 msgid "All statuses"
 msgstr "Все статусы"
@@ -297,3 +338,21 @@ msgstr "Все исполнители"
 msgid "All labels"
 msgstr "Все метки"
 
+#: task_manager/templates/labels/label_confirm_delete.html:21
+#, python-format
+msgid "Are you sure you want to delete %(label)s?"
+msgstr "Вы уверены, что хотите удалить %(label)s?"
+
+#: task_manager/templates/statuses/status_confirm_delete.html:19
+#, python-format
+msgid "Are you sure you want to delete %(status)s?"
+msgstr "Вы уверены, что хотите удалить %(status)s?"
+
+#: task_manager/templates/tasks/task_confirm_delete.html:19
+msgid "Are you sure you want to delete %(task)s?"
+msgstr "Вы уверены, что хотите удалить %(task)s?"
+
+#: task_manager/templates/users/user_confirm_delete.html.html:11
+#, python-format
+msgid "Are you sure you want to delete %(username)s?"
+msgstr "Вы уверены, что хотите удалить %(username)s?"

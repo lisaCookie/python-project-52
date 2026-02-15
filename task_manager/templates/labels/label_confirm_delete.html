@@ -18,7 +18,7 @@
 
 <form method="post">
     {% csrf_token %}
-    <p>{% blocktrans %}Are you sure you want to delete {{ object.name }}?{% endblocktrans %}</p>
+    <p>{% blocktrans %}Are you sure you want to delete {{ label }}?{% endblocktrans %}</p>
     <button type="submit" class="btn btn-danger">{% trans "Yes, delete" %}</button>
     <a href="{% url 'label_list' %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
 </form>
