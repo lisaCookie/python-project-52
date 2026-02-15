@@ -28,12 +28,16 @@ class UserUpdateForm(UserChangeForm):
         label=_('Пароль'),
         widget=forms.PasswordInput(render_value=True),
         required=False,
-        help_text=_('Raw passwords are not stored, so there is no way to see this user\'s password, but you can change the password using <a href="../password/">this form</a>.'),
+    )
+    password2 = forms.CharField(
+        label=_('Подтверждение пароля'),
+        widget=forms.PasswordInput(render_value=True),
+        required=False,
     )
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name', 'password1']
+        fields = ['username', 'email', 'first_name', 'last_name', 'password1', 'password2']
         labels = {
             'username': _('Имя пользователя'),
             'email': _('Email'),
@@ -43,4 +47,5 @@ class UserUpdateForm(UserChangeForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['password1'].help_text = _('')
+        self.fields['password1'].help_text = ''
+        self.fields['password2'].help_text = ''
