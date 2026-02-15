@@ -188,11 +188,11 @@ msgid "Create label"
 msgstr "Создать метку"
 
 #: task_manager/labels/views.py:25
-msgid "Label successfully created"
+msgid "Label created successfully"
 msgstr "Метка успешно создана"
 
 #: task_manager/labels/views.py:35
-msgid "Label successfully changed"
+msgid "Label updated successfully"
 msgstr "Метка успешно изменена"
 
 #: task_manager/labels/views.py:47
@@ -200,7 +200,7 @@ msgid "It is impossible to delete the label because it is being used"
 msgstr "Невозможно удалить метку, потому что она используется"
 
 #: task_manager/labels/views.py:50
-msgid "Label successfully deleted"
+msgid "Label deleted successfully"
 msgstr "Метка успешно удалена"
 
 #: task_manager/templates/labels/label_list.html:26
