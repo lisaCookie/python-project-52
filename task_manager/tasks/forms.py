@@ -3,7 +3,6 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from .models import Task
 from task_manager.labels.models import Label
-from task_manager.users.models import User  # ← новый импорт
 
 
 class TaskForm(forms.ModelForm):
@@ -29,11 +28,6 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # Делаем поля обязательными
         self.fields['status'].required = True
-        self.fields['user'] = forms.ModelChoiceField(
-            queryset=User.objects.all(),
-            required=False,
-            empty_label='---------',
-            widget=forms.Select(attrs={'class': 'form-control'}),
-            label=_('Исполнитель')
-        )
+        self.fields['user'].required = True
