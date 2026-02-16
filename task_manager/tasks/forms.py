@@ -1,9 +1,39 @@
 # tasks/forms.py
 
 from django import forms
+from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from .models import Task
+from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
+
+User = get_user_model()
+
+
+class TaskFilterForm(forms.Form):
+    status = forms.ModelChoiceField(
+        queryset=Status.objects.all(),
+        required=False,
+        label=_('Status'),
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    executor = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=False,
+        label=_('Executor'),
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    label = forms.ModelChoiceField(
+        queryset=Label.objects.all(),
+        required=False,
+        label=_('Label'),
+        widget=forms.Select(attrs={'class': 'form-select'})
+    )
+    self_task = forms.BooleanField(
+        required=False,
+        label=_('Only your own tasks'),
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'})
+    )
 
 
 class TaskForm(forms.ModelForm):
