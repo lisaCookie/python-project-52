@@ -61,4 +61,3 @@ class TaskForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['status'].required = True
-        self.fields['executor'].required = True
