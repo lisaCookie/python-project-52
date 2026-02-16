@@ -28,7 +28,7 @@
                     <option value="">---------</option>
                     {% for user in executors %}
                         <option value="{{ user.id }}" {% if current_executor == user.id|stringformat:"s" %}selected{% endif %}>
-                            Исполнитель {{ user.username }}
+                           {{ user.username }}
                         </option>
                     {% endfor %}
                 </select>
