@@ -30,6 +30,6 @@ class TaskForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Делаем поля обязательными
+        self.fields['user'].label = 'Исполнитель'
         self.fields['status'].required = True
         self.fields['user'].required = True
