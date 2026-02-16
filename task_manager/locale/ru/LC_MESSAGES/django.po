@@ -247,6 +247,7 @@ msgstr "Статус"
 #: task_manager/templates/tasks/task_detail.html:32
 #: task_manager/templates/tasks/task_list.html:22
 #: task_manager/templates/tasks/task_list.html:58
+#: task_manager/tasks/models.py:17
 msgid "Executor"
 msgstr "Исполнитель"
 
