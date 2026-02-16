@@ -1,4 +1,5 @@
 <!-- templates/tasks/task_list.html -->
+
 {% extends "base.html" %}
 {% load i18n %}
 
@@ -22,11 +23,11 @@
             </div>
 
             <div class="col-md-3">
-                <label for="user" class="form-label">{% trans "Executor" %}</label>
-                <select name="user" id="user" class="form-select">
+                <label for="executor" class="form-label">{% trans "Executor" %}</label>
+                <select name="executor" id="executor" class="form-select">
                     <option value="">---------</option>
-                    {% for user in users %}
-                        <option value="{{ user.id }}" {% if current_user == user.id|stringformat:"s" %}selected{% endif %}>
+                    {% for user in executors %}
+                        <option value="{{ user.id }}" {% if current_executor == user.id|stringformat:"s" %}selected{% endif %}>
                             {{ user.username }}
                         </option>
                     {% endfor %}
@@ -86,7 +87,7 @@
             </td>
             <td>{{ task.status.name }}</td>
             <td>{{ task.author.username }}</td>
-            <td>{{ task.user.username|default:"Not assigned" }}</td>
+            <td>{{ task.executor.username|default:"Not assigned" }}</td>
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
             <td>
                 <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a>

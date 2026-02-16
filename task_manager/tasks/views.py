@@ -26,9 +26,9 @@ class TaskListView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(status_id=status_id)
         
         # Фильтр по исполнителю
-        user_id = self.request.GET.get('user')
-        if user_id:
-            queryset = queryset.filter(user_id=user_id)
+        executor_id = self.request.GET.get('executor')
+        if executor_id:
+            queryset = queryset.filter(executor_id=executor_id)
         
         # Фильтр по метке
         label_id = self.request.GET.get('label')
@@ -46,10 +46,10 @@ class TaskListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         # Добавляем фильтры в контекст
         context['statuses'] = Status.objects.all()
-        context['users'] = User.objects.all()
+        context['executors'] = User.objects.all()
         context['labels'] = Label.objects.all()
         context['current_status'] = self.request.GET.get('status', '')
-        context['current_user'] = self.request.GET.get('user', '')
+        context['current_executor'] = self.request.GET.get('executor', '')
         context['current_label'] = self.request.GET.get('label', '')
         context['self_task'] = self.request.GET.get('self_task', '')
         return context
