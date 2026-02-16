@@ -25,7 +25,7 @@ class TaskForm(forms.ModelForm):
             ),
             'status': forms.Select(attrs={'class': 'form-control'}
             ),
-            'user': forms.Select(attrs={'class': 'form-control'}),
+            'user': forms.Select(attrs={'class': 'form-control', 'id': 'id_user' }),
         }
 
     def __init__(self, *args, **kwargs):
