@@ -14,20 +14,34 @@
 
 <form method="post">
     {% csrf_token %}
-    
+
     {% for field in form %}
-    <div class="mb-3">
-        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-        {{ field }}
-        {% if field.errors %}
-            <div class="alert alert-danger">{{ field.errors }}</div>
-        {% endif %}
-        {% if field.help_text %}
-            <div class="form-text">{{ field.help_text }}</div>
-        {% endif %}
-    </div>
+        <div class="mb-3">
+            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+
+            {% if field.name == 'executor' %}
+                <select name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-select">
+                    <option value="">---------</option>
+                    {% for choice_value, choice_label in field.field.choices %}
+                        <option value="{{ choice_value }}"
+                                {% if field.value == choice_value %}selected{% endif %}>
+                            Исполнитель {{ choice_label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                {{ field }}
+            {% endif %}
+
+            {% if field.errors %}
+                <div class="alert alert-danger">{{ field.errors }}</div>
+            {% endif %}
+            {% if field.help_text %}
+                <div class="form-text">{{ field.help_text }}</div>
+            {% endif %}
+        </div>
     {% endfor %}
-    
+
     <button type="submit" class="btn btn-primary">
         {% if form.instance.pk %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}
     </button>
