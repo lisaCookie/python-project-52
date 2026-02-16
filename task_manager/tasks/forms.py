@@ -16,7 +16,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['name', 'description', 'status', 'user', 'labels']
+        fields = ['name', 'description', 'status', 'executor', 'labels']
         widgets = {
             'name': forms.TextInput(
                 attrs={'class': 'form-control', 'placeholder': _('Имя')}
@@ -25,12 +25,10 @@ class TaskForm(forms.ModelForm):
                 attrs={'class': 'form-control', 'rows': 4, 'placeholder': _('Описание')}
             ),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'user': forms.Select(
-                attrs={'class': 'form-control', 'title': 'Исполнитель'}
-            ),
+            'executor': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['status'].required = True
-        self.fields['user'].required = True
+        self.fields['executor'].required = True

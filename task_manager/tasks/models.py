@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 class Task(models.Model):
     name = models.CharField(max_length=255, verbose_name=_('Name'))
     description = models.TextField(blank=True, verbose_name=_('Description'))
-    user = models.ForeignKey(
+    executor = models.ForeignKey(
         User, 
         on_delete=models.SET_NULL, 
         null=True, 
