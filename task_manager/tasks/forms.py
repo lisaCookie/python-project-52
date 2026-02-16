@@ -23,7 +23,9 @@ class TaskForm(forms.ModelForm):
             'description': forms.Textarea(
                 attrs={'class': 'form-control', 'rows': 4, 'placeholder': _('Описание')}
             ),
-            'status': forms.Select(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}
+            ),
+            'user': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
