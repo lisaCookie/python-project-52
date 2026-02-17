@@ -70,7 +70,7 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
             return HttpResponseRedirect(self.get_success_url())
         except ProtectedError as err:
             tasks = [str(obj) for obj in err.protected_objects if obj._meta.model._meta.label == 'tasks.Task']
-            msg = (_('Невозможно удалить пользователя, потому что он используется') % {'tasks': ', '.join(tasks)}) if tasks else _('Невозможно удалить пользователя, так как он используется')
+            msg = (_('Невозможно удалить пользователя, потому что он используется') % {'tasks': ', '.join(tasks)}) if tasks else _('Невозможно удалить пользователя, потому что он используется')
             messages.error(self.request, msg)
             return HttpResponseRedirect(self.get_success_url())
 
