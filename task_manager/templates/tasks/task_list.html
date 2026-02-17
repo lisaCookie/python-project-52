@@ -62,8 +62,8 @@
                 <a href="{% url 'task-detail' task.id %}">{{ task.name }}</a>
             </td>
             <td>{{ task.status.name }}</td>
-            <td>{{ task.author.username }}</td>
-            <td>{{ task.executor.username|default:"Not assigned" }}</td>
+            <td>{{ task.author.get_full_name|default:task.author.username }}</td>
+            <td>{{ task.executor.get_full_name|default:"Not assigned" }}</td>
             <td>{{ task.created_at|date:"d.m.Y H:i" }}</td>
             <td>
                 <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-primary">{% trans "Edit" %}</a>

@@ -22,14 +22,14 @@
             </div>
             <div class="col-md-6">
                 <strong>{% trans "Author" %}</strong>
-                <p>{{ task.author.username }}</p>
+                <p>{{ task.author.get_full_name|default:task.author.username }}</p>
             </div>
         </div>
         
         <div class="row">
             <div class="col-md-6">
                 <strong>{% trans "Executor" %}</strong>
-                <p>{{ task.executor.username|default:"Not assigned" }}</p>
+                <p>{{ task.executor.get_full_name|default:"Not assigned" }}</p>
             </div>
             <div class="col-md-6">
                 <strong>{% trans "Creation date" %}</strong>
