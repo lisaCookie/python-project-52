@@ -9,10 +9,10 @@ class LabelForm(forms.ModelForm):
         model = Label
         fields = ['name']
         labels = {
-            'name': _('Name')
+            'name': _('Имя')
         }
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Имя')})  # ✅ Добавлено
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Имя')})
         }
     
     def clean_name(self):
@@ -20,7 +20,7 @@ class LabelForm(forms.ModelForm):
         if Label.objects.filter(name=name).exists():
             if self.instance and self.instance.pk:
                 if Label.objects.filter(name=name).exclude(pk=self.instance.pk).exists():
-                    raise ValidationError(_("Label with this name already exists"))
+                    raise ValidationError(_('Метка с таким именем уже существует'))
             else:
-                raise ValidationError(_("Label with this name already exists"))
+                raise ValidationError(_('Метка с таким именем уже существует'))
         return name

@@ -1,4 +1,4 @@
-# tasks/tests.py
+# tasks/tests.py 
 
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -29,7 +29,7 @@ class TaskTests(TestCase):
             description='Test Description',
             status=self.status,
             author=self.user,
-            user=self.user
+            executor=self.user
         )
         self.task.labels.add(self.label)
 
@@ -48,8 +48,8 @@ class TaskTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Test Task')
         
-        # Test user filter
-        response = self.client.get(f'{reverse("task-list")}?user={self.user.id}')
+        # Test executor filter
+        response = self.client.get(f'{reverse("task-list")}?executor={self.user.id}')
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Test Task')
         
@@ -83,7 +83,7 @@ class TaskTests(TestCase):
             'name': 'New Task',
             'description': 'New Description',
             'status': self.status.id,
-            'user': self.user.id,
+            'executor': self.user.id,
             'labels': [self.label.id]
         }
         response = self.client.post(reverse('task-create'), data)
@@ -104,7 +104,7 @@ class TaskTests(TestCase):
             'name': 'Updated Task',
             'description': 'Updated Description',
             'status': self.status.id,
-            'user': self.user.id,
+            'executor': self.user.id,
             'labels': [self.label.id]
         }
         response = self.client.post(reverse('task-update', args=[self.task.pk]), data)
@@ -133,7 +133,7 @@ class TaskTests(TestCase):
             description='Other Description',
             status=self.status,
             author=self.other_user,
-            user=self.other_user
+            executor=self.other_user
         )
         
         self.client.login(username='testuser', password='testpass123')
@@ -143,14 +143,14 @@ class TaskTests(TestCase):
         
         # Check error message
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Вы можете удалять только свои задачи')
+        self.assertEqual(str(messages[0]), 'Задачу может удалить только ее автор')
 
     def test_task_form_valid(self):
         form_data = {
             'name': 'Form Test Task',
             'description': 'Form Test Description',
             'status': self.status.id,
-            'user': self.user.id,
+            'executor': self.user.id,
             'labels': [self.label.id]
         }
         form = TaskForm(data=form_data)
@@ -161,7 +161,7 @@ class TaskTests(TestCase):
             'name': '',  # required field empty
             'description': 'Test Description',
             'status': self.status.id,
-            'user': self.user.id
+            'executor': self.user.id
         }
         form = TaskForm(data=form_data)
         self.assertFalse(form.is_valid())
@@ -172,7 +172,7 @@ class TaskTests(TestCase):
             'name': 'Author Test Task',
             'description': 'Author Test Description',
             'status': self.status.id,
-            'user': self.user.id
+            'executor': self.user.id
         }
         self.client.post(reverse('task-create'), data)
         task = Task.objects.get(name='Author Test Task')
@@ -199,7 +199,7 @@ class TaskTests(TestCase):
             'name': 'Message Test Task',
             'description': 'Message Test Description',
             'status': self.status.id,
-            'user': self.user.id
+            'executor': self.user.id
         }
         response = self.client.post(reverse('task-create'), data, follow=True)
         messages_list = list(get_messages(response.wsgi_request))

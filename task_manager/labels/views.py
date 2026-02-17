@@ -22,7 +22,7 @@ class LabelCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('label_list')
     
     def form_valid(self, form):
-        messages.success(self.request, _('Label created successfully'))
+        messages.success(self.request, _('Метка успешно создана'))
         return super().form_valid(form)
 
 class LabelUpdateView(LoginRequiredMixin, UpdateView):
@@ -32,7 +32,7 @@ class LabelUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('label_list')
     
     def form_valid(self, form):
-        messages.success(self.request, _('Label updated successfully'))
+        messages.success(self.request, _('Метка успешно изменена'))
         return super().form_valid(form)
 
 class LabelDeleteView(LoginRequiredMixin, DeleteView):
@@ -44,8 +44,8 @@ class LabelDeleteView(LoginRequiredMixin, DeleteView):
         label = self.get_object()
         
         if label.tasks.exists():
-            messages.error(request, _('It is impossible to delete the label because it is being used'))
+            messages.error(request, _('Невозможно удалить метку, потому что она используется'))
             return redirect('label_list')
         
-        messages.success(request, _('Label deleted successfully'))
+        messages.success(request, _('Метка успешно удалена'))
         return super().post(request, *args, **kwargs)

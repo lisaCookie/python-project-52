@@ -9,6 +9,9 @@ class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
         fields = ['name']
+        labels = {
+            'name': _('Имя')
+        }
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': _('Имя')})
         }
@@ -18,7 +21,7 @@ class StatusForm(forms.ModelForm):
         if Status.objects.filter(name=name).exists():
             if self.instance and self.instance.pk:
                 if Status.objects.filter(name=name).exclude(pk=self.instance.pk).exists():
-                    raise ValidationError(_("Status with this name already exists"))
+                    raise ValidationError(_('Статус с таким именем уже существует'))
             else:
-                raise ValidationError(_("Status with this name already exists"))
+                raise ValidationError(_('Статус с таким именем уже существует'))
         return name

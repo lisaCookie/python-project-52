@@ -9,9 +9,6 @@ from django.utils.translation import gettext as _
 from .models import Task
 from .forms import TaskForm, TaskFilterForm
 from django.shortcuts import redirect
-from task_manager.statuses.models import Status
-from task_manager.users.models import User
-from task_manager.labels.models import Label
 
 
 class TaskListView(LoginRequiredMixin, ListView):
@@ -52,7 +49,7 @@ class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = TaskForm
     template_name = 'tasks/task_form.html'
     success_url = reverse_lazy('task-list')
-    success_message = _('Task successfully created')
+    success_message = _('Задача успешно создана')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -64,19 +61,19 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = TaskForm
     template_name = 'tasks/task_form.html'
     success_url = reverse_lazy('task-list')
-    success_message = _('Task successfully updated')
+    success_message = _('Задача успешно изменена')
 
 
 class TaskDeleteView(LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView):
     model = Task
     template_name = 'tasks/task_confirm_delete.html'
     success_url = reverse_lazy('task-list')
-    success_message = _('Task successfully deleted')
+    success_message = _('Задача успешно удалена')
 
     def test_func(self):
         task = self.get_object()
         return self.request.user == task.author
 
     def handle_no_permission(self):
-        messages.error(self.request, _('Only the author can delete an issue.'))
+        messages.error(self.request, _('Задачу может удалить только ее автор'))
         return redirect('task-list')

@@ -1,4 +1,5 @@
 # test_labels.py
+
 from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -25,7 +26,7 @@ class LabelTests(TestCase):
             description='Test Description',
             status=self.status,
             author=self.user,
-            user=self.user
+            executor=self.user
         )
         self.task.labels.add(self.label)
 
@@ -110,7 +111,7 @@ class LabelTests(TestCase):
         
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно удалена.')
+        self.assertEqual(str(messages[0]), 'Метка успешно удалена')
 
     def test_label_delete_view_post_with_tasks(self):
         self.client.login(username='testuser', password='testpass123')
@@ -121,7 +122,7 @@ class LabelTests(TestCase):
         
         # Проверяем сообщение об ошибке
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Невозможно удалить метку, которая связана с задачами.')
+        self.assertEqual(str(messages[0]), 'Невозможно удалить метку, потому что она используется')
 
     def test_label_form_valid(self):
         form_data = {'name': 'Valid Label'}
