@@ -11,7 +11,7 @@ run:
 	uv run python manage.py runserver
 
 lint:
-	uv run ruff check
+	ruff check .
 
 lint-fix:
 	uv run ruff check --fix

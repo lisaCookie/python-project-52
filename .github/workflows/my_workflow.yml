@@ -34,8 +34,7 @@ jobs:
 
       - name: Install project dependencies with uv
         run: |
-          uv sync --no-dev  # Устанавливаем только production-зависимости из pyproject.toml
-          # Если нужны dev-зависимости для тестов — используйте `uv sync` без --no-dev и добавьте [tool.uv.dev-dependencies]
+          uv sync --extra dev
 
       - name: Show versions
         run: |
