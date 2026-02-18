@@ -34,7 +34,7 @@ jobs:
 
       - name: Install project dependencies with uv
         run: |
-          uv sync --group dev
+          uv sync
 
       - name: Show versions
         run: |
