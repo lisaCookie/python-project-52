@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        DJANGO_SETTINGS_MODULE: task_manager.settings
-        ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
-        ROLLBAR_ENV: development
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DJANGO_SETTINGS_MODULE: task_manager.settings
+      ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
+      ROLLBAR_ENV: development
 
     steps:
       - name: Checkout repository
@@ -44,13 +44,13 @@ jobs:
           uv run python -c "import psycopg2; print('psycopg2 installed')" || echo "psycopg2 not required in CI (using SQLite)"
 
       - name: Run Ruff linter
-        run: uv run make lint
+        run: uv run ruff check .  
 
       - name: Run Django migrations
-        run: uv run make ci-migrate
+        run: uv run python manage.py migrate --noinput  
 
       - name: Run tests with coverage
-        run: uv run make ci-test
+        run: uv run python -m pytest --cov=task_manager --cov-report=xml --tb=short  
 
       - name: Upload coverage report
         if: success()
