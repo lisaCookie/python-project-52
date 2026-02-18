@@ -50,9 +50,10 @@ jobs:
         run: uv run python manage.py migrate --noinput  
 
       - name: Run tests and generate coverage report
-        run: uv run coverage run -m pytest --tb=short
-            uv run coverage xml -o coverage.xml  
-
+        run: |
+          uv run coverage run -m pytest --tb=short task_manager
+          uv run coverage xml -o coverage.xml
+  
       - name: Upload coverage report
         if: success()
         uses: codecov/codecov-action@v4
