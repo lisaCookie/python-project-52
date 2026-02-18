@@ -49,8 +49,9 @@ jobs:
       - name: Run Django migrations
         run: uv run python manage.py migrate --noinput  
 
-      - name: Run tests with coverage
-        run: uv run python -m pytest --cov=task_manager --cov-report=xml --tb=short  
+      - name: Run tests and generate coverage report
+        run: uv run coverage run -m pytest --tb=short
+            uv run coverage xml -o coverage.xml  
 
       - name: Upload coverage report
         if: success()

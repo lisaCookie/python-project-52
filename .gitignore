@@ -6,3 +6,5 @@ env
 venv
 db.sqlite3
 hexlet_code.egg-info
+.coverage
+coverage.xml
