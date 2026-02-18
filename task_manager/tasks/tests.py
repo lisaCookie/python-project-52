@@ -15,10 +15,10 @@ class TaskTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(
-            username="testuser", password="testpass123"
+            username="testuser", password="testpass123"   # NOSONAR
         )
         self.other_user = User.objects.create_user(
-            username="otheruser", password="otherpass123"
+            username="otheruser", password="otherpass123"   # NOSONAR
         )
         self.status = Status.objects.create(name="Test Status")
         self.label = Label.objects.create(name="Test Label")
@@ -33,14 +33,14 @@ class TaskTests(TestCase):
         self.task.labels.add(self.label)
 
     def test_task_list_view(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("task-list"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/task_list.html")
         self.assertContains(response, "Test Task")
 
     def test_task_list_view_filters(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
 
         # Test status filter
         response = self.client.get(
@@ -69,21 +69,21 @@ class TaskTests(TestCase):
         self.assertContains(response, "Test Task")
 
     def test_task_detail_view(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("task-detail", args=[self.task.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/task_detail.html")
         self.assertContains(response, "Test Task")
 
     def test_task_create_view_get(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("task-create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/task_form.html")
         self.assertIsInstance(response.context["form"], TaskForm)
 
     def test_task_create_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {
             "name": "New Task",
             "description": "New Description",
@@ -97,14 +97,14 @@ class TaskTests(TestCase):
         self.assertTrue(Task.objects.filter(name="New Task").exists())
 
     def test_task_update_view_get(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("task-update", args=[self.task.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/task_form.html")
         self.assertIsInstance(response.context["form"], TaskForm)
 
     def test_task_update_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {
             "name": "Updated Task",
             "description": "Updated Description",
@@ -121,13 +121,13 @@ class TaskTests(TestCase):
         self.assertEqual(self.task.name, "Updated Task")
 
     def test_task_delete_view_get(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("task-delete", args=[self.task.pk]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tasks/task_confirm_delete.html")
 
     def test_task_delete_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.post(reverse("task-delete", args=[self.task.pk]))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("task-list"))
@@ -143,7 +143,7 @@ class TaskTests(TestCase):
             executor=self.other_user,
         )
 
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("task-delete", args=[other_task.pk]))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("task-list"))
@@ -176,7 +176,7 @@ class TaskTests(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_task_creation_sets_author(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {
             "name": "Author Test Task",
             "description": "Author Test Description",
@@ -201,7 +201,7 @@ class TaskTests(TestCase):
         self.assertEqual(response.status_code, 302)
 
     def test_success_messages(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
 
         # Test create message
         data = {

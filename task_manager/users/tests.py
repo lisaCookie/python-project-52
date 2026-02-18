@@ -10,10 +10,10 @@ class UserTests(TestCase):
         self.client = Client()
         # Создаем пользователя для тестов обновления и удаления
         self.user = User.objects.create_user(
-            username="testuser", password="pass123"
+            username="testuser", password="pass123"  # NOSONAR
         )
         self.other_user = User.objects.create_user(
-            username="otheruser", password="pass456"
+            username="otheruser", password="pass456"  # NOSONAR
         )
 
     def test_user_create(self):
@@ -21,8 +21,8 @@ class UserTests(TestCase):
             reverse("user-create"),
             {
                 "username": "newuser",
-                "password1": "abc123",
-                "password2": "abc123",
+                "password1": "abc123",  # NOSONAR
+                "password2": "abc123",  # NOSONAR
             },
         )
         self.assertEqual(
@@ -31,7 +31,7 @@ class UserTests(TestCase):
         self.assertTrue(User.objects.filter(username="newuser").exists())
 
     def test_user_update_self(self):
-        self.client.login(username="testuser", password="pass123")
+        self.client.login(username="testuser", password="pass123")  # NOSONAR
         url = reverse("user-update", args=[self.user.id])
         response = self.client.post(
             url,
@@ -47,7 +47,7 @@ class UserTests(TestCase):
         self.assertEqual(self.user.username, "updateduser")
 
     def test_user_update_other(self):
-        self.client.login(username="testuser", password="pass123")
+        self.client.login(username="testuser", password="pass123")  # NOSONAR
         url = reverse("user-update", args=[self.other_user.id])
         response = self.client.post(
             url,
@@ -61,14 +61,14 @@ class UserTests(TestCase):
         self.assertEqual(response.status_code, 302)  # PermissionDenied
 
     def test_user_delete_self(self):
-        self.client.login(username="testuser", password="pass123")
+        self.client.login(username="testuser", password="pass123")  # NOSONAR
         url = reverse("user-delete", args=[self.user.id])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(User.objects.filter(id=self.user.id).exists())
 
     def test_user_delete_other(self):
-        self.client.login(username="testuser", password="pass123")
+        self.client.login(username="testuser", password="pass123")  # NOSONAR
         url = reverse("user-delete", args=[self.other_user.id])
         response = self.client.post(url)
         self.assertEqual(response.status_code, 302)  # PermissionDenied

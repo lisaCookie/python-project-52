@@ -14,7 +14,7 @@ class StatusTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(
-            username="testuser", password="testpass123"
+            username="testuser", password="testpass123"   # NOSONAR
         )
         self.status = Status.objects.create(name="Test Status")
 
@@ -28,21 +28,21 @@ class StatusTests(TestCase):
         )
 
     def test_status_list_view(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("status-list"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "statuses/status_list.html")
         self.assertContains(response, "Test Status")
 
     def test_status_create_view_get(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(reverse("status-create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "statuses/status_form.html")
         self.assertIsInstance(response.context["form"], StatusForm)
 
     def test_status_create_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {"name": "New Status"}
         response = self.client.post(reverse("status-create"), data)
         self.assertEqual(response.status_code, 302)
@@ -53,14 +53,14 @@ class StatusTests(TestCase):
         self.assertEqual(str(messages[0]), "Статус успешно создан")
 
     def test_status_create_view_post_duplicate(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {"name": "Test Status"}
         response = self.client.post(reverse("status-create"), data)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Статус с таким именем уже существует")
 
     def test_status_update_view_get(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(
             reverse("status-update", args=[self.status.pk])
         )
@@ -69,7 +69,7 @@ class StatusTests(TestCase):
         self.assertIsInstance(response.context["form"], StatusForm)
 
     def test_status_update_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {"name": "Updated Status"}
         response = self.client.post(
             reverse("status-update", args=[self.status.pk]), data
@@ -84,7 +84,7 @@ class StatusTests(TestCase):
 
     def test_status_update_view_post_duplicate(self):
         other_status = Status.objects.create(name="Other Status")
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         data = {"name": "Test Status"}
         response = self.client.post(
             reverse("status-update", args=[other_status.pk]), data
@@ -93,7 +93,7 @@ class StatusTests(TestCase):
         self.assertContains(response, "Статус с таким именем уже существует")
 
     def test_status_delete_view_get(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.get(
             reverse("status-delete", args=[self.status.pk])
         )
@@ -102,7 +102,7 @@ class StatusTests(TestCase):
 
     def test_status_delete_view_post_success(self):
         deletable_status = Status.objects.create(name="Deletable Status")
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.post(
             reverse("status-delete", args=[deletable_status.pk])
         )
@@ -114,7 +114,7 @@ class StatusTests(TestCase):
         self.assertEqual(str(messages[0]), "Статус успешно удален")
 
     def test_status_delete_view_post_with_tasks(self):
-        self.client.login(username="testuser", password="testpass123")
+        self.client.login(username="testuser", password="testpass123")   # NOSONAR
         response = self.client.post(
             reverse("status-delete", args=[self.status.pk])
         )

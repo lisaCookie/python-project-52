@@ -1,0 +1,78 @@
+name: Python CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-and-sonarqube:
+    runs-on: ubuntu-latest
+
+    env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DJANGO_SETTINGS_MODULE: task_manager.settings
+        ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
+        ROLLBAR_ENV: development
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Install project dependencies with uv
+        run: |
+          uv sync --no-dev  # Устанавливаем только production-зависимости из pyproject.toml
+          # Если нужны dev-зависимости для тестов — используйте `uv sync` без --no-dev и добавьте [tool.uv.dev-dependencies]
+
+      - name: Show versions
+        run: |
+          python --version
+          uv --version
+          uv run python -c "import django, sys; print('Django', django.get_version())"
+          uv run python -c "import psycopg2; print('psycopg2 installed')" || echo "psycopg2 not required in CI (using SQLite)"
+
+      - name: Run Ruff linter
+        run: uv run make lint
+
+      - name: Run Django migrations
+        run: uv run make ci-migrate
+
+      - name: Run tests with coverage
+        run: uv run make ci-test
+
+      - name: Upload coverage report
+        if: success()
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.xml
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
+        with:
+          args: >
+            -Dsonar.projectKey=your-organization_your-project-name
+            -Dsonar.organization=your-organization
+            -Dsonar.projectName=Task Manager (Django)
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=task_manager
+            -Dsonar.tests=task_manager
+            -Dsonar.exclusions=**/migrations/**,**/tests/**,venv/**,env/**
