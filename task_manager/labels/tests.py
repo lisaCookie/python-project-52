@@ -31,21 +31,30 @@ class LabelTests(TestCase):
         self.task.labels.add(self.label)
 
     def test_label_list_view(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         response = self.client.get(reverse("label_list"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "labels/label_list.html")
         self.assertContains(response, "Test Label")
 
     def test_label_create_view_get(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         response = self.client.get(reverse("label_create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "labels/label_form.html")
         self.assertIsInstance(response.context["form"], LabelForm)
 
     def test_label_create_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         data = {"name": "New Label"}
         response = self.client.post(reverse("label_create"), data)
         self.assertEqual(response.status_code, 302)
@@ -57,14 +66,20 @@ class LabelTests(TestCase):
         self.assertEqual(str(messages[0]), "Метка успешно создана")
 
     def test_label_create_view_post_duplicate(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         data = {"name": "Test Label"}  # Дублирующее имя
         response = self.client.post(reverse("label_create"), data)
         self.assertEqual(response.status_code, 200)  # Форма не прошла валидацию
         self.assertContains(response, "Метка с таким именем уже существует")
 
     def test_label_update_view_get(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         response = self.client.get(
             reverse("label_update", args=[self.label.pk])
         )
@@ -73,7 +88,10 @@ class LabelTests(TestCase):
         self.assertIsInstance(response.context["form"], LabelForm)
 
     def test_label_update_view_post_success(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         data = {"name": "Updated Label"}
         response = self.client.post(
             reverse("label_update", args=[self.label.pk]), data
@@ -91,7 +109,10 @@ class LabelTests(TestCase):
         # Создаем вторую метку для теста дублирования
         other_label = Label.objects.create(name="Other Label")
 
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         data = {
             "name": "Test Label"
         }  # Пытаемся переименовать в существующее имя
@@ -102,7 +123,10 @@ class LabelTests(TestCase):
         self.assertContains(response, "Метка с таким именем уже существует")
 
     def test_label_delete_view_get(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         response = self.client.get(
             reverse("label_delete", args=[self.label.pk])
         )
@@ -113,7 +137,10 @@ class LabelTests(TestCase):
         # Создаем метку без связанных задач для успешного удаления
         deletable_label = Label.objects.create(name="Deletable Label")
 
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         response = self.client.post(
             reverse("label_delete", args=[deletable_label.pk])
         )
@@ -126,7 +153,10 @@ class LabelTests(TestCase):
         self.assertEqual(str(messages[0]), "Метка успешно удалена")
 
     def test_label_delete_view_post_with_tasks(self):
-        self.client.login(username="testuser", password="testpass123")   # NOSONAR
+        self.client.login(
+            username="testuser",
+            password="testpass123",
+        )   # NOSONAR
         response = self.client.post(
             reverse("label_delete", args=[self.label.pk])
         )
