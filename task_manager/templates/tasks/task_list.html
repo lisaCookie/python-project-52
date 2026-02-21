@@ -40,7 +40,11 @@
     </div>
 </div>
 
-<a class="btn btn-primary mb-3" href="{% url 'task-create' %}">{% trans "Create task" %}</a>
+<a href="{% url 'task-create' %}"
+   class="btn btn-primary mb-3"
+   role="button">
+    {% trans "Create task" %}
+</a>
 
 <table class="table table-striped">
     <thead>
