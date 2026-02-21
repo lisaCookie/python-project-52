@@ -70,8 +70,8 @@ jobs:
           SONAR_HOST_URL: https://sonarcloud.io
         with:
           args: >
-            -Dsonar.projectKey=your-organization_your-project-name
-            -Dsonar.organization=your-organization
+            -Dsonar.projectKey=lisaCookie_python-project-52
+            -Dsonar.organization=lisaCookie
             -Dsonar.projectName=Task Manager (Django)
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=task_manager
