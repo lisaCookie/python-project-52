@@ -25,7 +25,7 @@
         {% for user_obj in users %}
         <tr>
             <td>{{ user_obj.id }}</td>
-            <td data-testid="username-cell">{{ user_obj.username }}</td>
+            <td>{{ user_obj.username }}</td>
             <td>{{ user_obj.first_name }} {{ user_obj.last_name }}</td>
             <td>{{ user_obj.date_joined|date:"d.m.Y H:i" }}</td>
             {% if user.is_authenticated %}
