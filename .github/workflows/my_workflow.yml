@@ -61,5 +61,5 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=lisaCookie_python-project-52
-            -Dsonar.organization=lisaCookie
+            -Dsonar.organization=lisaсookie
             -Dsonar.python.coverage.reportPaths=coverage.xml
