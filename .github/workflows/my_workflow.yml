@@ -10,6 +10,12 @@ jobs:
   test-and-sonarqube:
     runs-on: ubuntu-latest
 
+    env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DJANGO_SETTINGS_MODULE: task_manager.settings
+        ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
+        ROLLBAR_ENV: development
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,13 +34,6 @@ jobs:
 
       - name: Install project dependencies with uv
         run: uv sync
-
-      - name: Configure environment
-        run: |
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
-          echo "DJANGO_SETTINGS_MODULE=task_manager.settings" >> $GITHUB_ENV
-          echo "ROLLBAR_ACCESS_TOKEN=${{ secrets.ROLLBAR_ACCESS_TOKEN }}" >> $GITHUB_ENV
-          echo "ROLLBAR_ENV=development" >> $GITHUB_ENV
 
       - name: Show versions
         run: |
