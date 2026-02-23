@@ -53,15 +53,6 @@ jobs:
           uv run coverage run -m pytest --tb=short task_manager
           uv run coverage xml -o coverage.xml
 
-      - name: Upload coverage report
-        if: success()
-        uses: codecov/codecov-action@v4
-        with:
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-umbrella
-          fail_ci_if_error: false
-
       - name: SonarQube Scan
         uses: sonarsource/sonarqube-scan-action@v6
         env:
@@ -72,4 +63,3 @@ jobs:
             -Dsonar.projectKey=lisaCookie_python-project-52
             -Dsonar.organization=lisaCookie
             -Dsonar.python.coverage.reportPaths=coverage.xml
-            
