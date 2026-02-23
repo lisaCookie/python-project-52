@@ -71,8 +71,5 @@ jobs:
           args: >
             -Dsonar.projectKey=lisaCookie_python-project-52
             -Dsonar.organization=lisaCookie
-            -Dsonar.projectName=Task Manager (Django)
             -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.sources=task_manager
-            -Dsonar.tests=task_manager
-            -Dsonar.exclusions=**/migrations/**,**/tests/**,venv/**,env/**
+            
