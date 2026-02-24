@@ -33,8 +33,8 @@ class LabelTests(TestCase):
     def test_label_list_view(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         response = self.client.get(reverse("label_list"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "labels/label_list.html")
@@ -43,8 +43,8 @@ class LabelTests(TestCase):
     def test_label_create_view_get(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         response = self.client.get(reverse("label_create"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "labels/label_form.html")
@@ -53,8 +53,8 @@ class LabelTests(TestCase):
     def test_label_create_view_post_success(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         data = {"name": "New Label"}
         response = self.client.post(reverse("label_create"), data)
         self.assertEqual(response.status_code, 302)
@@ -68,8 +68,8 @@ class LabelTests(TestCase):
     def test_label_create_view_post_duplicate(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         data = {"name": "Test Label"}  # Дублирующее имя
         response = self.client.post(reverse("label_create"), data)
         self.assertEqual(response.status_code, 200)  # Форма не прошла валидацию
@@ -78,8 +78,8 @@ class LabelTests(TestCase):
     def test_label_update_view_get(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         response = self.client.get(
             reverse("label_update", args=[self.label.pk])
         )
@@ -90,8 +90,8 @@ class LabelTests(TestCase):
     def test_label_update_view_post_success(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         data = {"name": "Updated Label"}
         response = self.client.post(
             reverse("label_update", args=[self.label.pk]), data
@@ -111,8 +111,8 @@ class LabelTests(TestCase):
 
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         data = {
             "name": "Test Label"
         }  # Пытаемся переименовать в существующее имя
@@ -125,8 +125,8 @@ class LabelTests(TestCase):
     def test_label_delete_view_get(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         response = self.client.get(
             reverse("label_delete", args=[self.label.pk])
         )
@@ -139,8 +139,8 @@ class LabelTests(TestCase):
 
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         response = self.client.post(
             reverse("label_delete", args=[deletable_label.pk])
         )
@@ -155,8 +155,8 @@ class LabelTests(TestCase):
     def test_label_delete_view_post_with_tasks(self):
         self.client.login(
             username="testuser",
-            password="testpass123",
-        )   # NOSONAR
+            password="testpass123",   # NOSONAR
+        )
         response = self.client.post(
             reverse("label_delete", args=[self.label.pk])
         )
