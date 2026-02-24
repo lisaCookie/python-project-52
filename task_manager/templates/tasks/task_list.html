@@ -39,11 +39,12 @@
         </form>
     </div>
 </div>
-<button type="button" 
-        class="btn btn-primary mb-3" 
-        onKeyDown="/* создать задачу */">
+<a href="{% url 'task-create' %}"   
+   class="btn btn-primary mb-3" 
+   role="button"
+   onKeyDown="/* создать задачу */">
     {% trans "Create task" %}
-</button> 
+</a>  
 
 <table class="table table-striped">
     <thead>
