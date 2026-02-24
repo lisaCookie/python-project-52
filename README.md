@@ -1,7 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/lisaCookie/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/lisaCookie/python-project-52/actions)
 
-[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-light.svg)](https://sonarcloud.io/summary/new_code?id=lisaCookie_python-project-52)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=lisaCookie_python-project-52)](https://sonarcloud.io/summary/new_code?id=lisaCookie_python-project-52)
 
 
 # Task Manager — Управление задачами на Django
