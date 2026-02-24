@@ -9,8 +9,6 @@ from .views import (
     LabelUpdateView,
 )
 
-# app_name = 'labels'
-
 urlpatterns = [
     path("", LabelListView.as_view(), name="label_list"),
     path("create/", LabelCreateView.as_view(), name="label_create"),

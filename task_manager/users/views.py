@@ -40,7 +40,9 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
             return super().dispatch(request, *args, **kwargs)
         except PermissionDenied:
             messages.error(
-                request, _("У вас нет прав для изменения другого пользователя.")
+                request,
+                _("У вас нет прав для"
+                " изменения другого пользователя.")  # NOSONAR
             )
             return redirect("user-list")
 
@@ -48,7 +50,8 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         user = super().get_object(queryset)
         if user != self.request.user:
             raise PermissionDenied(
-                _("У вас нет прав для изменения другого пользователя.")
+                _("У вас нет прав для "
+                "изменения другого пользователя.")  # NOSONAR
             )
         return user
 
@@ -62,7 +65,9 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def dispatch(self, request, *args, **kwargs):
         if request.user.pk != int(kwargs["pk"]):
             messages.error(
-                request, _("У вас нет прав для изменения другого пользователя.")
+                request,
+                _("У вас нет прав для "
+                "изменения другого пользователя.")  # NOSONAR
             )
             return redirect("user-list")
         return super().dispatch(request, *args, **kwargs)
@@ -85,14 +90,14 @@ class UserDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
                 (
                     _(
                         "Невозможно удалить пользователя, " 
-                        "потому что он используется"
+                        "потому что он используется"  # NOSONAR
                     )
                     % {"tasks": ", ".join(tasks)}
                 )
                 if tasks
                 else _(
                     "Невозможно удалить пользователя, " 
-                    "потому что он используется"
+                    "потому что он используется"  # NOSONAR
                 )
             )
             messages.error(self.request, msg)
