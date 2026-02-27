@@ -50,7 +50,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          uv run coverage run -m pytest --cov=task_manager --cov-report=xml -q task_manager
+          uv run coverage run -m pytest --tb=short task_manager
           uv run coverage xml -o coverage.xml
 
       - name: SonarQube Scan
